@@ -37,6 +37,8 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
         // 仅允许HTTP访问此Cookie，增加安全性
         // cookie.setHttpOnly(true);
         response.addCookie(cookie);
+        System.out.println("oauth2成功设置cookie完成");
+        response.sendRedirect("/");
 
     }
 }

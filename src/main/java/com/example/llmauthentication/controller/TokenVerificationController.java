@@ -16,7 +16,7 @@ public class TokenVerificationController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @PostMapping
+    @GetMapping
     public ResponseEntity<?> verifyToken(HttpServletRequest request) {
         String token = null;
         // 从请求中获取所有的Cookie
