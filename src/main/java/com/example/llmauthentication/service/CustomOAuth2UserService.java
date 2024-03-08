@@ -2,6 +2,7 @@ package com.example.llmauthentication.service;
 
 
 import com.example.llmauthentication.model.EcnuUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
@@ -24,7 +26,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         ecnuUser.setName((String) attributes.get("name"));
         ecnuUser.setVpnEnabled((Integer) attributes.get("vpnEnabled"));
         // 省略保存逻辑
-        System.out.println(ecnuUser);
+        log.info(ecnuUser + "登陆成功");
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority("USER")),
                 attributes,
