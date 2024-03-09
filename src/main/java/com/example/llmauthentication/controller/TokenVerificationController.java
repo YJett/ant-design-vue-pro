@@ -1,5 +1,7 @@
 package com.example.llmauthentication.controller;
 
+import com.example.llmauthentication.mapper.UserMapper;
+import com.example.llmauthentication.model.User;
 import com.example.llmauthentication.security.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class TokenVerificationController {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @GetMapping
     public ResponseEntity<?> verifyToken(HttpServletRequest request) {
@@ -42,13 +47,17 @@ public class TokenVerificationController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No token provided");
         }
         try {
-            String username = jwtUtil.getUsernameFromToken(token);
+            String userId = jwtUtil.getUserIdFromToken(token);
             boolean isValid = !jwtUtil.isTokenExpired(token);
-            if (isValid) {
-                log.info("The user {} has logged in . current token is {}", username,token );
+            User currentUser= userMapper.findByExternalUserId(userId);
+            if (isValid && currentUser.getCanAccess()==1) {
+                log.info("The user {} has logged in . current token is {}", currentUser,token );
                 return ResponseEntity.ok().body("Token is valid");
+            } else if (currentUser.getCanAccess()!=1){
+                log.info("The user {}  cant access  . current token is {}", currentUser,token );
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Permission denied");
             } else {
-                log.info("The user {}  logged failed . current token is {}", username,token );
+                log.info("The user {}  logged failed . current token is {}", currentUser,token );
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is expired or invalid");
             }
         } catch (Exception e) {

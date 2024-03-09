@@ -1,7 +1,11 @@
 package com.example.llmauthentication.security;
 
+import com.example.llmauthentication.mapper.UserMapper;
+import com.example.llmauthentication.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -13,12 +17,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+@Slf4j
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
 
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     public JwtRequestFilter(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
@@ -27,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        String username = null;
+        String userId = null;
         String jwt = null;
 
         // 从请求中获取所有的Cookie
@@ -40,20 +48,29 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     String cookieValue = cookie.getValue();
                     if (cookieValue != null) {
                         jwt = cookieValue;
-                        username = jwtUtil.getUsernameFromToken(jwt);
+                        userId = jwtUtil.getUserIdFromToken(jwt);
                         break;
                     }
                 }
             }
         }
+        if (!jwtUtil.validateToken(jwt, userId)) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expired or invalid");
+            return;
+        }
 
-        System.out.println(jwt);
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            if (jwtUtil.validateToken(jwt, username)) {
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        username, null, new ArrayList<>());
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            User currentUser = userMapper.findByExternalUserId(userId);
+            if (currentUser.getExternalUserId().length()>=10){
+                authorities.add(new SimpleGrantedAuthority(Role.ROLE_STUDENT.name()));
+            }else {
+                authorities.add(new SimpleGrantedAuthority(Role.ROLE_TEACHER.name()));
             }
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                    userId, null, authorities);
+            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+
         }
         chain.doFilter(request, response);
     }

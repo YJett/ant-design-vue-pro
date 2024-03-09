@@ -24,7 +24,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
 
-        // 假设我们使用OAuth2User的"name"属性作为用户名
+        // 假设我们使用OAuth2User的"userid"属性作为用户名
         String userId = oAuth2User.getAttribute("userId");
 
         // 使用JwtUtil生成JWT

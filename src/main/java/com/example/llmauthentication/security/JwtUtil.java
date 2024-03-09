@@ -23,12 +23,12 @@ public class JwtUtil {
                 .compact();
     }
 
-    public boolean validateToken(String token, String username) {
-        final String tokenUsername = getUsernameFromToken(token);
-        return (username.equals(tokenUsername) && !isTokenExpired(token));
+    public boolean validateToken(String token, String userId) {
+        final String tokenUserId = getUserIdFromToken(token);
+        return (userId.equals(tokenUserId) && !isTokenExpired(token));
     }
 
-    public String getUsernameFromToken(String token) {
+    public String getUserIdFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 

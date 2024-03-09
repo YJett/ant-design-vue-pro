@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/","/verify-token","/login**", "/error**", "/authenticate").permitAll()
+                .antMatchers("/","/verify-token","/login**", "/error**", "/authenticate","/test/*","/druid/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // 配置OAuth2登录

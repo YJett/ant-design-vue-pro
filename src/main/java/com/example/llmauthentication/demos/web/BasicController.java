@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
  */
+@RequestMapping("/test")
 @Controller
 public class BasicController {
 
