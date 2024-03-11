@@ -21,13 +21,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registerOrLoadUser(Map<String, Object> attributes) {
-        String externalUserId = (String) attributes.get("external_user_id");
+        String externalUserId = (String) attributes.get("userId");
         User user = userMapper.findByExternalUserId(externalUserId);
 
         if (user == null) {
             user = new User();
             user.setExternalUserId(externalUserId);
-            user.setUsername((String) attributes.get("username"));
+            user.setUsername((String) attributes.get("name"));
             user.setLastLoginTime(LocalDateTime.now()); // 或根据实际情况设置
             user.setCreationTime(LocalDateTime.now());
             user.setCanAccess(1);
@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void updateCanAccess(String studentId, int canAccess) {
-        userMapper.updateCanAccess(studentId, canAccess);
+    public void updateCanAccess(String external_user_id, int canAccess) {
+        userMapper.updateCanAccess(external_user_id, canAccess);
     }
 
     @Override
