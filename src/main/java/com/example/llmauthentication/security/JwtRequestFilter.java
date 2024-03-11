@@ -2,6 +2,7 @@ package com.example.llmauthentication.security;
 
 import com.example.llmauthentication.mapper.UserMapper;
 import com.example.llmauthentication.model.User;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,41 +39,51 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String userId = null;
         String jwt = null;
 
-        // 从请求中获取所有的Cookie
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            // 查找名为"Authorization"的Cookie
-            for (Cookie cookie : cookies) {
-                if ("Authorization".equals(cookie.getName())) {
-                    // 提取JWT令牌，去掉"Bearer "前缀
-                    String cookieValue = cookie.getValue();
-                    if (cookieValue != null) {
-                        jwt = cookieValue;
-                        userId = jwtUtil.getUserIdFromToken(jwt);
-                        break;
+        try {
+            // 从请求中获取所有的Cookie
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                // 查找名为"Authorization"的Cookie
+                for (Cookie cookie : cookies) {
+                    if ("Authorization".equals(cookie.getName())) {
+                        // 提取JWT令牌，去掉"Bearer "前缀
+                        String cookieValue = cookie.getValue();
+                        if (cookieValue != null) {
+                            jwt = cookieValue;
+                            userId = jwtUtil.getUserIdFromToken(jwt);
+                            break;
+                        }
                     }
                 }
             }
-        }
-        if (!jwtUtil.validateToken(jwt, userId)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expired or invalid");
+            assert userId != null;
+            if (!jwtUtil.validateToken(jwt, userId)) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
+                return;
+            }
+            // Existing authentication logic here
+            if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+                User currentUser = userMapper.findByExternalUserId(userId);
+                if (currentUser.getExternalUserId().length()>=10){
+                    authorities.add(new SimpleGrantedAuthority(Role.ROLE_STUDENT.name()));
+                }else {
+                    authorities.add(new SimpleGrantedAuthority(Role.ROLE_TEACHER.name()));
+                }
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                        userId, null, authorities);
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
+        } catch (ExpiredJwtException e) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expired");
+            return;
+        } catch (Exception e) { // Catch any other exception that might be thrown during token validation
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
             return;
         }
 
-        if (SecurityContextHolder.getContext().getAuthentication() == null) {
-            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-            User currentUser = userMapper.findByExternalUserId(userId);
-            if (currentUser.getExternalUserId().length()>=10){
-                authorities.add(new SimpleGrantedAuthority(Role.ROLE_STUDENT.name()));
-            }else {
-                authorities.add(new SimpleGrantedAuthority(Role.ROLE_TEACHER.name()));
-            }
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                    userId, null, authorities);
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-
-        }
         chain.doFilter(request, response);
     }
+
 }
 
