@@ -1,16 +1,23 @@
 package com.example.llmauthentication.service;
 
+import com.alibaba.excel.EasyExcel;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.llmauthentication.mapper.UserMapper;
 import com.example.llmauthentication.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     private final UserMapper userMapper;
 
@@ -18,6 +25,16 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
+
+    public void saveOrUpdateFromExcel(InputStream inputStream) throws IOException {
+        List<User> users = EasyExcel.read(inputStream).head(User.class).sheet().doReadSync();
+
+        for (User user : users) {
+            this.saveOrUpdate(user, Wrappers.<User>lambdaUpdate().eq(User::getExternalUserId, user.getExternalUserId()));
+        }
+    }
+
+
 
     @Override
     public User registerOrLoadUser(Map<String, Object> attributes) {
@@ -36,6 +53,19 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+    public boolean saveOrUpdateUser(User user) {
+        User existingUser = userMapper.getByExternalUserId(user.getExternalUserId());
+        if (existingUser != null) {
+            // Update the existing user
+            user.setUserId(existingUser.getUserId());
+            int updateResult = userMapper.updateByExternalUserId(user);
+            return updateResult > 0;
+        } else {
+            // Save the new user
+            return save(user);
+        }
+    }
+
 
     @Override
     public User findByExternalUserId(String externalUserId) {
@@ -60,4 +90,6 @@ public class UserServiceImpl implements UserService {
         // 这里假设你有一个通过externalUserId删除用户的Mapper方法
         userMapper.deleteByExternalUserId(externalUserId);
     }
+
+
 }

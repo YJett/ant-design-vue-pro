@@ -1,10 +1,10 @@
 package com.example.llmauthentication.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.llmauthentication.model.User;
 import org.apache.ibatis.annotations.*;
 
-@Mapper
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
     @Select("SELECT * FROM user WHERE external_user_id = #{externalUserId}")
     @Results({
             @Result(property = "userId", column = "user_id"),
@@ -16,6 +16,18 @@ public interface UserMapper {
     })
     User findByExternalUserId(@Param("externalUserId") String externalUserId);
 
+    @Select("SELECT * FROM `user` WHERE `external_user_id` = #{externalUserId}")
+
+    User getByExternalUserId(String externalUserId);
+    @Update("UPDATE `user` " +
+            "<set>" +
+            "  <if test='username != null'>username = #{username},</if>" +
+            "  <if test='lastLoginTime != null'>last_login_time = #{lastLoginTime},</if>" +
+            "  <if test='creationTime != null'>creation_time = #{creationTime},</if>" +
+            "  <if test='canAccess != null'>can_access = #{canAccess},</if>" +
+            "</set>" +
+            "WHERE `external_user_id` = #{externalUserId}")
+    int updateByExternalUserId(User user);
 
     @Insert("INSERT INTO user (external_user_id, username, last_login_time, creation_time,can_access) " +
             "VALUES (#{externalUserId}, #{username}, #{lastLoginTime}, #{creationTime},#{canAccess})")

@@ -1,10 +1,14 @@
 package com.example.llmauthentication.model;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 
+@TableName("`user`")
 public class User {
+    @TableId
     private Integer userId;
     private String externalUserId;
     private String username;

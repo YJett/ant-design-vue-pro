@@ -5,6 +5,9 @@ import com.example.llmauthentication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/users")
@@ -15,6 +18,16 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+
+    @PostMapping("/upload")
+    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        if (!file.isEmpty()) {
+            userService.saveOrUpdateFromExcel(file.getInputStream());
+        } else {
+            throw new IllegalArgumentException("File is empty");
+        }
     }
 
     @GetMapping("/{externalUserId}")
