@@ -31,19 +31,22 @@ public class UserController {
             @RequestParam(value = "pageNum", defaultValue = "1") int currentPage,
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
             @RequestParam(value = "externalUserId", required = false) String externalUserId,
-            @RequestParam(value = "username", required = false) String username) {
+            @RequestParam(value = "username", required = false) String username,
+            @RequestParam(value = "canAccess", required = false) Integer canAccess) { // 新增参数
 
-        log.info("current params is {} {} {}",currentPage,pageSize,externalUserId);
-        IPage<User>  result =  userService.selectUserPage(currentPage, pageSize, externalUserId, username);
-        log.info("current list num is {}",result.getTotal());
+        log.info("current params are pageNum: {}, pageSize: {}, externalUserId: {}, username: {}, canAccess: {}", currentPage, pageSize, externalUserId, username, canAccess);
+        IPage<User> result = userService.selectUserPage(currentPage, pageSize, externalUserId, username, canAccess); // 传递新参数
+        log.info("current list num is {}", result.getTotal());
         return PageResult.success(result);
     }
 
 
+
     @PostMapping("/upload")
-    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    public Result<Integer> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
-            userService.saveOrUpdateFromExcel(file.getInputStream());
+            int rst = userService.saveOrUpdateFromExcel(file.getInputStream());
+            return Result.success(rst);
         } else {
             throw new IllegalArgumentException("File is empty");
         }

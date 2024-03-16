@@ -28,7 +28,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         this.userMapper = userMapper;
     }
 
-    public void saveOrUpdateFromExcel(InputStream inputStream) throws IOException {
+    public int saveOrUpdateFromExcel(InputStream inputStream) throws IOException {
         List<User> users = EasyExcel
                 .read(inputStream)
                 .head(User.class)
@@ -39,6 +39,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         for (User user : users) {
             this.saveOrUpdate(user, Wrappers.<User>lambdaUpdate().eq(User::getExternalUserId, user.getExternalUserId()));
         }
+        return users.size();
     }
 
 
@@ -73,7 +74,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
     }
 
-    public IPage<User> selectUserPage(int currentPage, int pageSize, String externalUserId, String username) {
+    public IPage<User> selectUserPage(int currentPage, int pageSize, String externalUserId, String username, Integer canAccess) {
         // 创建Page对象
         Page<User> page = new Page<>(currentPage, pageSize);
         // 创建QueryWrapper对象
@@ -87,9 +88,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (username != null && !username.trim().isEmpty()) {
             queryWrapper.like("username", username);
         }
+        // 如果提供了canAccess，则进行精确查询
+        if (canAccess != null) {
+            queryWrapper.eq("can_access", canAccess);
+        }
         // 执行分页查询
         return userMapper.selectPage(page, queryWrapper);
     }
+
 
 
     @Override

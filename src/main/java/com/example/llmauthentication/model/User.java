@@ -21,7 +21,7 @@ public class User {
     private LocalDateTime lastLoginTime;
     private LocalDateTime creationTime;
 
-    @ExcelProperty("可以访问")
+    @ExcelProperty("权限")
     private int canAccess; // 新增字段
 
     public int getCanAccess() {

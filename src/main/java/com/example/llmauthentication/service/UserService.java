@@ -14,7 +14,7 @@ public interface UserService {
     void insertUser(User user);
     void updateCanAccess(String studentId, int canAccess);
     void deleteUser(String externalUserId);
-    void  saveOrUpdateFromExcel(InputStream inputStream)  throws IOException;
+    int  saveOrUpdateFromExcel(InputStream inputStream)  throws IOException;
 
-    IPage<User>  selectUserPage(int currentPage, int pageSize, String externalUserId, String username);
+    IPage<User>  selectUserPage(int currentPage, int pageSize, String externalUserId, String username,Integer canAccess);
 }
