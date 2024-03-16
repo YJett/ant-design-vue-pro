@@ -1,7 +1,10 @@
 package com.example.llmauthentication.service;
 
 import com.alibaba.excel.EasyExcel;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.llmauthentication.mapper.UserMapper;
 import com.example.llmauthentication.model.User;
@@ -9,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
@@ -27,7 +29,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     public void saveOrUpdateFromExcel(InputStream inputStream) throws IOException {
-        List<User> users = EasyExcel.read(inputStream).head(User.class).sheet().doReadSync();
+        List<User> users = EasyExcel
+                .read(inputStream)
+                .head(User.class)
+                .sheet()
+                .headRowNumber(1)
+                .doReadSync();
 
         for (User user : users) {
             this.saveOrUpdate(user, Wrappers.<User>lambdaUpdate().eq(User::getExternalUserId, user.getExternalUserId()));
@@ -64,6 +71,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             // Save the new user
             return save(user);
         }
+    }
+
+    public IPage<User> selectUserPage(int currentPage, int pageSize, String externalUserId, String username) {
+        // 创建Page对象
+        Page<User> page = new Page<>(currentPage, pageSize);
+        // 创建QueryWrapper对象
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+
+        // 如果提供了externalUserId，则进行精确查询
+        if (externalUserId != null && !externalUserId.trim().isEmpty()) {
+            queryWrapper.eq("external_user_id", externalUserId);
+        }
+        // 如果提供了username，则进行模糊查询
+        if (username != null && !username.trim().isEmpty()) {
+            queryWrapper.like("username", username);
+        }
+        // 执行分页查询
+        return userMapper.selectPage(page, queryWrapper);
     }
 
 

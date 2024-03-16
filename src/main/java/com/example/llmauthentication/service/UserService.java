@@ -1,5 +1,6 @@
 package com.example.llmauthentication.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.llmauthentication.model.User;
 
 import java.io.FileInputStream;
@@ -14,4 +15,6 @@ public interface UserService {
     void updateCanAccess(String studentId, int canAccess);
     void deleteUser(String externalUserId);
     void  saveOrUpdateFromExcel(InputStream inputStream)  throws IOException;
+
+    IPage<User>  selectUserPage(int currentPage, int pageSize, String externalUserId, String username);
 }

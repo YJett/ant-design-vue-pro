@@ -77,6 +77,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 }
             }
             if (jwt == null || userId == null || !jwtUtil.validateToken(jwt, userId)) {
+                log.info("Invalid or expired token");
                 throw new Exception("Invalid or expired token");
             }
             log.info("token is valid");
@@ -97,7 +98,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            response.sendRedirect("/login");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 

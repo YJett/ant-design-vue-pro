@@ -1,5 +1,7 @@
 package com.example.llmauthentication.model;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,14 +10,18 @@ import java.time.LocalDateTime;
 
 @TableName("`user`")
 public class User {
-    @TableId
+    @TableId(value = "user_id",type = IdType.AUTO)
     private Integer userId;
+
+    @ExcelProperty("学号/工号")
     private String externalUserId;
+
     private String username;
 
     private LocalDateTime lastLoginTime;
     private LocalDateTime creationTime;
 
+    @ExcelProperty("可以访问")
     private int canAccess; // 新增字段
 
     public int getCanAccess() {
