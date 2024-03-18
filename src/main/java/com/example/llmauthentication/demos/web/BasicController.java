@@ -33,7 +33,7 @@ public class BasicController {
     @RequestMapping("/hello")
     @ResponseBody
     public String hello(@RequestParam(name = "name", defaultValue = "unknown user") String name) {
-        return "Hello " + name +" 认证成功,请重新进入你所需要的系统";
+        return "Hello.html";
     }
 
     // http://127.0.0.1:8080/user
