@@ -1,5 +1,7 @@
 package com.example.llmauthentication.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.llmauthentication.common.result.PageResult;
 import com.example.llmauthentication.common.result.Result;
@@ -12,7 +14,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
 
 @Slf4j
 @CrossOrigin(origins = "*")
@@ -75,14 +82,31 @@ public class UserController {
         return Result.success();
     }
 
-    /*
+
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
+    @GetMapping("/template")
+    public void downloadTemplate(HttpServletResponse response) throws IOException {
+        String fileName = "用户导入模板.xlsx";
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8"));
+
+        String fileClassPath = "excel-templates" + File.separator + fileName;
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(fileClassPath);
+
+        ServletOutputStream outputStream = response.getOutputStream();
+        ExcelWriter excelWriter = EasyExcel.write(outputStream).withTemplate(inputStream).build();
+
+        excelWriter.finish();
+    }
+
+
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @DeleteMapping("/{externalUserId}")
     public ResponseEntity<Void> deleteUser(@PathVariable String externalUserId) {
         userService.deleteUser(externalUserId);
         return ResponseEntity.ok().build();
     }
 
-     */
 
 
 }
