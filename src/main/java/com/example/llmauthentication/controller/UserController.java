@@ -10,8 +10,10 @@ import com.example.llmauthentication.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
@@ -20,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @CrossOrigin(origins = "*")
@@ -81,8 +84,35 @@ public class UserController {
         userService.updateCanAccess(studentId, canAccess);
         return Result.success();
     }
+    /*
+    @Async
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
+    @GetMapping("/template")
+    public DeferredResult<Void> downloadTemplate(HttpServletResponse response) {
+        DeferredResult<Void> deferredResult = new DeferredResult<>();
 
+        CompletableFuture.runAsync(() -> {
+            try {
+                String fileName = "用户导入模板.xlsx";
+                response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8"));
 
+                String fileClassPath = "excel-templates" + File.separator + fileName;
+                InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(fileClassPath);
+
+                ServletOutputStream outputStream = response.getOutputStream();
+                ExcelWriter excelWriter = EasyExcel.write(outputStream).withTemplate(inputStream).build();
+
+                excelWriter.finish();
+                deferredResult.setResult(null); // 设置DeferredResult的结果，表示处理完成
+            } catch (IOException e) {
+                deferredResult.setErrorResult(e); // 处理异常情况
+            }
+        });
+
+        return deferredResult;
+    }
+     */
     @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @GetMapping("/template")
     public void downloadTemplate(HttpServletResponse response) throws IOException {

@@ -27,7 +27,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
-
+    /*
+    * 在for循环中操作数据库是不合理的
+    *
+    * */
     public int saveOrUpdateFromExcel(InputStream inputStream) throws IOException {
         List<User> users = EasyExcel
                 .read(inputStream)

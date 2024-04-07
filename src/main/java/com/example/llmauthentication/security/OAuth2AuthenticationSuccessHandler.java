@@ -35,7 +35,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
         // 设置Cookie的路径。如果您希望Cookie对整个应用都有效，可以设置为"/"
         cookie.setPath("/");
         // 根据需要设置Cookie的有效期，这里假设为7天
-        cookie.setMaxAge(3 * 24 * 60 * 60);
+        cookie.setMaxAge(5 * 24 * 60 * 60);
         // 仅允许HTTP访问此Cookie，增加安全性
         // cookie.setHttpOnly(true);
         response.addCookie(cookie);
