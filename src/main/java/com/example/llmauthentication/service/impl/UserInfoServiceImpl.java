@@ -36,7 +36,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
         UserInfoVo userInfoVo = new UserInfoVo();
         BeanUtils.copyProperties(user, userInfoVo);
         userInfoVo.setToken("123456");
-//        StpUtil.login(10001);
+        Integer userId = userInfoVo.getUserId();
+        StpUtil.login(userId);
         return Result.success(userInfoVo);
     }
 }
