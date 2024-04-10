@@ -90,7 +90,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
             queryWrapper = queryWrapper.like("email", email);
         }
         if (userName != null && !userName.isEmpty()) {
-            queryWrapper = queryWrapper.like("userName", userName);
+            queryWrapper = queryWrapper.like("user_name", userName);
         }
 
         userInfoMapper.selectPage(page, queryWrapper);

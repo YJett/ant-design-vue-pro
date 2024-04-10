@@ -18,7 +18,9 @@ public class UserInfo implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer userId;
 
+    @TableField("user_name")
     private String userName;
+
 
     private String pwd;
 
@@ -28,10 +30,13 @@ public class UserInfo implements Serializable {
 
     private String flg;
 
+    @TableField("last_login")
     private Date lastLogin;
 
+    @TableField("create_time")
     private Date createTime;
 
+    @TableField("update_time")
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
