@@ -3,6 +3,7 @@ package com.example.llmauthentication.service.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.llmauthentication.common.result.Result;
 import com.example.llmauthentication.pojo.UserInfo;
@@ -24,6 +25,44 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
     implements UserInfoService{
     @Resource
     private UserInfoMapper userInfoMapper;
+
+    @Override
+    public boolean deleteUser(Long id) {
+        UserInfo user = this.getById(id);
+        if (user == null) {
+            return false;
+        } else {
+            user.setStatus("9");
+            return this.updateById(user);
+        }
+    }
+
+    @Override
+    public boolean createUser(UserInfoVo userInfoVo) {
+
+
+        UserInfo userInfo = new UserInfo();
+        BeanUtils.copyProperties(userInfoVo, userInfo);
+
+        int result = userInfoMapper.insert(userInfo);
+
+
+        return result > 0;    }
+
+    @Override
+    public boolean updateUser(UserInfoVo userInfoVo) {
+        // 将 userInfoVo 转换为 UserInfo
+        UserInfo userInfo = new UserInfo();
+        BeanUtils.copyProperties(userInfoVo, userInfo);
+
+        int result = userInfoMapper.updateById(userInfo);
+
+        // 如果更新成功，result 等于操作影响的行数，一般为1，
+        // 如果更新失败（例如找不到相应id的数据行），那么result 等于0
+        return result > 0;
+    }
+
+
     @Override
     public Result login(String username, String password) {
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
@@ -40,6 +79,26 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
         StpUtil.login(userId);
         return Result.success(userInfoVo);
     }
+
+    @Override
+    public Page<UserInfo> getUserPage(int current, int size, String email, String userName) {
+        Page<UserInfo> page = new Page<>(current, size);
+
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+
+        if (email != null && !email.isEmpty()) {
+            queryWrapper = queryWrapper.like("email", email);
+        }
+        if (userName != null && !userName.isEmpty()) {
+            queryWrapper = queryWrapper.like("userName", userName);
+        }
+
+        userInfoMapper.selectPage(page, queryWrapper);
+
+        return page;
+    }
+
+
 }
 
 
