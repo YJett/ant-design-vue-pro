@@ -15,15 +15,25 @@ import java.util.Map;
 @Slf4j
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("api")
 public class UserInfoController {
     @Resource
     private UserInfoService userInfoService;
-    @PostMapping("/login")
+    @PostMapping("/users/login")
     public Result login(@RequestBody Map<String, String> credentials) {
         String username = credentials.get("username");
         String password = credentials.get("password");
         Result result = userInfoService.login(username,password);
         return result;
+    }
+
+    @GetMapping("/Account/QueryAllUsers")
+    public Result queryAllUsers(
+            @RequestParam(value = "limit", defaultValue = "10") int limit,
+            @RequestParam(value = "page", defaultValue = "1") int pagenum
+    ) {
+        Result allUserinfo = userInfoService.queryAllUsers(pagenum,limit);
+
+        return allUserinfo;
     }
 }

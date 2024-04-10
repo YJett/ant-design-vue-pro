@@ -3,6 +3,8 @@ package com.example.llmauthentication.service.impl;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.llmauthentication.common.result.Result;
 import com.example.llmauthentication.pojo.UserInfo;
@@ -13,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * @author arthur
@@ -39,6 +42,14 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
         Integer userId = userInfoVo.getUserId();
         StpUtil.login(userId);
         return Result.success(userInfoVo);
+    }
+
+    @Override
+    public Result queryAllUsers(int pagenum, int limit) {
+        IPage<UserInfo> page = new Page<>(pagenum,limit);
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        List<UserInfo> userInfos = userInfoMapper.selectList(page, queryWrapper);
+        return Result.success(userInfos);
     }
 }
 
