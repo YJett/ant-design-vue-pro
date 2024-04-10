@@ -3,9 +3,9 @@ package com.example.llmauthentication.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.llmauthentication.common.result.PageResult;
 import com.example.llmauthentication.common.result.Result;
-import com.example.llmauthentication.pojo.UserInfo;
-import com.example.llmauthentication.pojo.UserInfoVo;
-import com.example.llmauthentication.service.UserInfoService;
+import com.example.llmauthentication.pojo.ComInfoVo;
+import com.example.llmauthentication.pojo.ComInfo;
+import com.example.llmauthentication.service.ComInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,27 +16,27 @@ import java.util.Map;
 @Slf4j
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/users")
-public class UserInfoController {
+@RequestMapping("api/com")
+public class ComInfoController {
     @Resource
-    private UserInfoService userInfoService;
+    private ComInfoService comInfoService;
     @PostMapping("/login")
     public Result login(@RequestBody Map<String, String> credentials) {
-        String username = credentials.get("username");
+        String comName = credentials.get("comName");
         String password = credentials.get("password");
-        Result result = userInfoService.login(username,password);
+        Result result = comInfoService.login(comName,password);
         return result;
     }
 
     @GetMapping("/page")
-    public PageResult<UserInfo> getUserPage(
+    public PageResult<ComInfo> getComPage(
             @RequestParam(value = "pageNum", defaultValue = "1") int currentPage,
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
             @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "userName", required = false) String userName) {
+            @RequestParam(value = "comName", required = false) String comName) {
 
-        log.info("current params are pageNum: {}, pageSize: {}, email: {}, userName: {}", currentPage, pageSize, email, userName);
-        Page<UserInfo> result = userInfoService.getUserPage(currentPage, pageSize, email, userName);
+        log.info("current params are pageNum: {}, pageSize: {}, email: {}, comName: {}", currentPage, pageSize, email, comName);
+        Page<ComInfo> result = comInfoService.getComPage(currentPage, pageSize, email, comName);
         log.info("current list num is {}", result.getTotal());
 
         return PageResult.success(result);
@@ -44,21 +44,21 @@ public class UserInfoController {
 
 
     @PostMapping("/create")
-    public Result createUser(@RequestBody @Valid UserInfoVo userInfoVo) {
-        boolean result = userInfoService.createUser(userInfoVo);
+    public Result createCom(@RequestBody @Valid ComInfoVo comInfoVo) {
+        boolean result = comInfoService.createCom(comInfoVo);
         return Result.judge(result);
     }
     @PutMapping("/update")
-    public Result updateUser(@RequestBody @Valid UserInfoVo userInfoVo) {
-        boolean updateResult = userInfoService.updateUser(userInfoVo);
+    public Result updateCom(@RequestBody @Valid ComInfoVo comInfoVo) {
+        boolean updateResult = comInfoService.updateCom(comInfoVo);
         return Result.judge(updateResult);
     }
 
 
 
     @DeleteMapping("/{id}")
-    public Result deleteUser(@PathVariable Long id) {
-        boolean result = userInfoService.deleteUser(id);
+    public Result deleteCom(@PathVariable Long id) {
+        boolean result = comInfoService.deleteCom(id);
         return Result.judge(result);
     }
 
