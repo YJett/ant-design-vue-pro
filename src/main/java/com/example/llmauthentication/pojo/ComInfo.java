@@ -16,7 +16,7 @@ import java.util.Date;
 @Data
 public class ComInfo implements Serializable {
 
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "comId",type = IdType.AUTO)
     private Integer comId;
 
     @TableField("comName")
@@ -38,10 +38,10 @@ public class ComInfo implements Serializable {
 
     private String comment;
 
-    @TableField("create_time")
+    @TableField("createTime")
     private Date createTime;
 
-    @TableField("update_time")
+    @TableField("updateTime")
     private Date updateTime;
 
     private String status;
