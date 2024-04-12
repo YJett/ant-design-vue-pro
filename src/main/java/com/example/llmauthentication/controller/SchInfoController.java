@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -56,10 +57,20 @@ public class SchInfoController {
 
 
 
+
     @DeleteMapping("/{id}")
     public Result deleteSch(@PathVariable Long id) {
         boolean result = schInfoService.deleteSch(id);
         return Result.judge(result);
     }
 
+    @PutMapping("/batchdelete")
+    public Result deleteBatchSch(@RequestBody List<Long> ids) {
+        boolean result = schInfoService.deleteBatchSch(ids);
+        return Result.judge(result);
+    }
+
+
+
 }
+

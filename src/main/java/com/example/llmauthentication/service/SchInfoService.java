@@ -6,6 +6,8 @@ import com.example.llmauthentication.common.result.Result;
 import com.example.llmauthentication.pojo.SchInfo;
 import com.example.llmauthentication.pojo.SchInfoVo;
 
+import java.util.List;
+
 /**
 * @author arthur
 * @description 针对表【company_info】的数据库操作Service
@@ -21,6 +23,8 @@ public interface SchInfoService extends IService<SchInfo> {
     boolean createSch(SchInfoVo schInfoVo);
 
     boolean updateSch(SchInfoVo schInfoVo);
+
+    boolean deleteBatchSch(List<Long> ids);
 
 
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * @author arthur
@@ -57,6 +58,20 @@ public class SchInfoServiceImpl extends ServiceImpl<SchInfoMapper, SchInfo>
         // 如果更新失败（例如找不到相应id的数据行），那么result 等于0
         return result > 0;
     }
+
+    @Override
+    public boolean deleteBatchSch(List<Long> ids) {
+        List<SchInfo> schInfos = this.listByIds(ids);
+        if (schInfos == null || schInfos.isEmpty()) {
+            return false;
+        } else {
+            for (SchInfo sch : schInfos) {
+                sch.setStatus("9");
+            }
+            return this.updateBatchById(schInfos);
+        }
+    }
+
 
 
     @Override
