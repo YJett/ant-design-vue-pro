@@ -6,11 +6,14 @@ import com.example.llmauthentication.common.result.Result;
 import com.example.llmauthentication.pojo.ComInfoVo;
 import com.example.llmauthentication.pojo.ComInfo;
 import com.example.llmauthentication.service.ComInfoService;
+import com.example.llmauthentication.utils.FileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Map;
 
 @Slf4j
@@ -61,5 +64,16 @@ public class ComInfoController {
         boolean result = comInfoService.deleteCom(id);
         return Result.judge(result);
     }
+
+    @PostMapping("/upload")
+    public Result<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        if (!file.isEmpty()) {
+            String filePath = FileUtils.saveFileToLocal(file);
+            return Result.success(filePath);
+        } else {
+            throw new IllegalArgumentException("File is empty");
+        }
+    }
+
 
 }

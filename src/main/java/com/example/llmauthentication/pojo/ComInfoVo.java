@@ -1,7 +1,8 @@
 package com.example.llmauthentication.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,9 +10,11 @@ import java.util.Date;
 /**
  * @TableName company_info
  */
-@TableName(value ="company_info")
 @Data
+@TableName(value = "company_info")
 public class ComInfoVo implements Serializable {
+
+
     private Integer comId;
 
     private String comName;
@@ -41,4 +44,12 @@ public class ComInfoVo implements Serializable {
     private String token;
 
     private static final long serialVersionUID = 1L;
+
+    public ComInfoVo() {
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof ComInfoVo;
+    }
+
 }
