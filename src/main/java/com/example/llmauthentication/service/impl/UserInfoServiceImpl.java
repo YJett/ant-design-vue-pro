@@ -62,6 +62,12 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
         return result > 0;
     }
 
+    @Override
+    public Result regist(UserInfo user) {
+
+        return null;
+    }
+
 
     @Override
     public Result login(String username, String password) {
@@ -97,6 +103,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
 
         return page;
     }
+
+
 
 
 }

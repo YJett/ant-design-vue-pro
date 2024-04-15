@@ -22,4 +22,5 @@ public interface UserInfoService extends IService<UserInfo> {
 
     boolean updateUser(UserInfoVo userInfoVo);
 
+    Result regist(UserInfo user);
 }
