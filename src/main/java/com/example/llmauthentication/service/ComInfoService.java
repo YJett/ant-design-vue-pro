@@ -26,6 +26,7 @@ public interface ComInfoService extends IService<ComInfo> {
     boolean createCom(ComInfoVo comInfoVo);
 
     boolean updateCom(ComInfoVo comInfoVo);
+
     boolean deleteBatchCom(List<Long> ids);
 
     boolean successBatchCom(List<Long> ids);

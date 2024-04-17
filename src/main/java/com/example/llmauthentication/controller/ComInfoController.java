@@ -77,13 +77,13 @@ public class ComInfoController {
     }
 
     @PutMapping("/batchsuccess")
-    public Result successBatchSch(@RequestBody List<Long> ids) {
+    public Result successBatchCom(@RequestBody List<Long> ids) {
         boolean result = comInfoService.successBatchCom(ids);
         return Result.judge(result);
     }
 
     @PutMapping("/batchdelete")
-    public Result deleteBatchSch(@RequestBody List<Long> ids) {
+    public Result deleteBatchCom(@RequestBody List<Long> ids) {
         boolean result = comInfoService.deleteBatchCom(ids);
         return Result.judge(result);
     }
