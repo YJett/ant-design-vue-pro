@@ -8,6 +8,7 @@ import com.example.llmauthentication.pojo.SchInfoVo;
 import com.example.llmauthentication.service.SchInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -68,6 +69,12 @@ public class SchInfoController {
     public Result deleteBatchSch(@RequestBody List<Long> ids) {
         boolean result = schInfoService.deleteBatchSch(ids);
         return Result.judge(result);
+    }
+
+    @PostMapping("/importSchInfoData")
+    public Result<Integer> importSchInfoData(@RequestParam("file") MultipartFile file){
+        schInfoService.importData(file);
+        return Result.success();
     }
 
 

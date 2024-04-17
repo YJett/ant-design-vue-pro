@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.llmauthentication.common.result.Result;
 import com.example.llmauthentication.pojo.ComInfo;
 import com.example.llmauthentication.pojo.ComInfoVo;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
 * @author arthur
@@ -12,6 +13,8 @@ import com.example.llmauthentication.pojo.ComInfoVo;
 * @createDate 2024-04-08 17:06:47
 */
 public interface ComInfoService extends IService<ComInfo> {
+    
+
     Result login(String comName, String password);
 
     Page<ComInfo> getComPage(int current, int size, String email, String comName);
@@ -23,4 +26,5 @@ public interface ComInfoService extends IService<ComInfo> {
     boolean updateCom(ComInfoVo comInfoVo);
 
 
+    void importData(MultipartFile file);
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.llmauthentication.common.result.Result;
 import com.example.llmauthentication.pojo.SchInfo;
 import com.example.llmauthentication.pojo.SchInfoVo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,4 +28,5 @@ public interface SchInfoService extends IService<SchInfo> {
     boolean deleteBatchSch(List<Long> ids);
 
 
+    void importData(MultipartFile file);
 }

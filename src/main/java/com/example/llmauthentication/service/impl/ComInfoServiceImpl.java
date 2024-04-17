@@ -1,18 +1,22 @@
 package com.example.llmauthentication.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.llmauthentication.common.result.Result;
+import com.example.llmauthentication.listener.comInfolistener;
 import com.example.llmauthentication.mapper.ComInfoMapper;
 import com.example.llmauthentication.pojo.ComInfo;
 import com.example.llmauthentication.pojo.ComInfoVo;
 import com.example.llmauthentication.service.ComInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
 * @author arthur
@@ -24,6 +28,9 @@ public class ComInfoServiceImpl extends ServiceImpl<ComInfoMapper, ComInfo>
     implements ComInfoService {
     @Resource
     private ComInfoMapper comInfoMapper;
+
+    @Resource
+    private comInfolistener comInfolistener;
 
     @Override
     public boolean deleteCom(Long id) {
@@ -56,6 +63,15 @@ public class ComInfoServiceImpl extends ServiceImpl<ComInfoMapper, ComInfo>
         // 如果更新成功，result 等于操作影响的行数，一般为1，
         // 如果更新失败（例如找不到相应id的数据行），那么result 等于0
         return result > 0;
+    }
+
+    @Override
+    public void importData(MultipartFile file) {
+        try {
+            EasyExcel.read(file.getInputStream(),ComInfo.class,comInfolistener).sheet().doRead();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

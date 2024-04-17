@@ -1,18 +1,23 @@
 package com.example.llmauthentication.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.llmauthentication.common.result.Result;
+import com.example.llmauthentication.listener.SchInfoListener;
 import com.example.llmauthentication.mapper.SchInfoMapper;
+import com.example.llmauthentication.pojo.ComInfo;
 import com.example.llmauthentication.pojo.SchInfo;
 import com.example.llmauthentication.pojo.SchInfoVo;
 import com.example.llmauthentication.service.SchInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -25,6 +30,8 @@ public class SchInfoServiceImpl extends ServiceImpl<SchInfoMapper, SchInfo>
     implements SchInfoService {
     @Resource
     private SchInfoMapper schInfoMapper;
+    @Resource
+    private SchInfoListener schInfoListener;
 
     @Override
     public boolean deleteSch(Long id) {
@@ -72,6 +79,14 @@ public class SchInfoServiceImpl extends ServiceImpl<SchInfoMapper, SchInfo>
         }
     }
 
+    @Override
+    public void importData(MultipartFile file) {
+        try {
+            EasyExcel.read(file.getInputStream(),SchInfo.class,schInfoListener).sheet().doRead();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     @Override
