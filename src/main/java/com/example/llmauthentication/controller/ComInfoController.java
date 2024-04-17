@@ -75,7 +75,7 @@ public class ComInfoController {
         }
     }
 
-    @PostMapping("/importcomData")
+    @PostMapping("/importComData")
     public Result<Integer> importcomData(@RequestParam("file") MultipartFile file){
             comInfoService.importData(file);
             return Result.success();
