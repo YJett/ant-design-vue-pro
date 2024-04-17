@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -73,6 +74,18 @@ public class ComInfoController {
         } else {
             throw new IllegalArgumentException("File is empty");
         }
+    }
+
+    @PutMapping("/batchsuccess")
+    public Result successBatchSch(@RequestBody List<Long> ids) {
+        boolean result = comInfoService.successBatchCom(ids);
+        return Result.judge(result);
+    }
+
+    @PutMapping("/batchdelete")
+    public Result deleteBatchSch(@RequestBody List<Long> ids) {
+        boolean result = comInfoService.deleteBatchCom(ids);
+        return Result.judge(result);
     }
 
     @PostMapping("/importComData")

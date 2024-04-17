@@ -7,13 +7,15 @@ import com.example.llmauthentication.pojo.ComInfo;
 import com.example.llmauthentication.pojo.ComInfoVo;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
 * @author arthur
 * @description 针对表【company_info】的数据库操作Service
 * @createDate 2024-04-08 17:06:47
 */
 public interface ComInfoService extends IService<ComInfo> {
-    
+
 
     Result login(String comName, String password);
 
@@ -24,7 +26,9 @@ public interface ComInfoService extends IService<ComInfo> {
     boolean createCom(ComInfoVo comInfoVo);
 
     boolean updateCom(ComInfoVo comInfoVo);
+    boolean deleteBatchCom(List<Long> ids);
 
+    boolean successBatchCom(List<Long> ids);
 
     void importData(MultipartFile file);
 }

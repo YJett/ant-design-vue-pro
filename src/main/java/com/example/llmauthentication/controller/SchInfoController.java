@@ -65,6 +65,12 @@ public class SchInfoController {
         return Result.judge(result);
     }
 
+    @PutMapping("/batchsuccess")
+    public Result successBatchSch(@RequestBody List<Long> ids) {
+        boolean result = schInfoService.successBatchSch(ids);
+        return Result.judge(result);
+    }
+
     @PutMapping("/batchdelete")
     public Result deleteBatchSch(@RequestBody List<Long> ids) {
         boolean result = schInfoService.deleteBatchSch(ids);

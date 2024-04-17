@@ -80,6 +80,19 @@ public class SchInfoServiceImpl extends ServiceImpl<SchInfoMapper, SchInfo>
     }
 
     @Override
+    public boolean successBatchSch(List<Long> ids) {
+        List<SchInfo> schInfos = this.listByIds(ids);
+        if (schInfos == null || schInfos.isEmpty()) {
+            return false;
+        } else {
+            for (SchInfo sch : schInfos) {
+                sch.setStatus("1");
+            }
+            return this.updateBatchById(schInfos);
+        }
+    }
+
+    @Override
     public void importData(MultipartFile file) {
         try {
             EasyExcel.read(file.getInputStream(),SchInfo.class,schInfoListener).sheet().doRead();

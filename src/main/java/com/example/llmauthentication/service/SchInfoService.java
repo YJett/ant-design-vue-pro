@@ -27,6 +27,8 @@ public interface SchInfoService extends IService<SchInfo> {
 
     boolean deleteBatchSch(List<Long> ids);
 
+    boolean successBatchSch(List<Long> ids);
+
 
     void importData(MultipartFile file);
 }

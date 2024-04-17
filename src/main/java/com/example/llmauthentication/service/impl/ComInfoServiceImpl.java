@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 /**
 * @author arthur
@@ -63,6 +64,31 @@ public class ComInfoServiceImpl extends ServiceImpl<ComInfoMapper, ComInfo>
         // 如果更新成功，result 等于操作影响的行数，一般为1，
         // 如果更新失败（例如找不到相应id的数据行），那么result 等于0
         return result > 0;
+    }
+
+    public boolean deleteBatchCom(List<Long> ids) {
+        List<ComInfo> comInfos = this.listByIds(ids);
+        if (comInfos == null || comInfos.isEmpty()) {
+            return false;
+        } else {
+            for (ComInfo com : comInfos) {
+                com.setStatus("9");
+            }
+            return this.updateBatchById(comInfos);
+        }
+    }
+
+    @Override
+    public boolean successBatchCom(List<Long> ids) {
+        List<ComInfo> comInfos = this.listByIds(ids);
+        if (comInfos == null || comInfos.isEmpty()) {
+            return false;
+        } else {
+            for (ComInfo com : comInfos) {
+                com.setStatus("1");
+            }
+            return this.updateBatchById(comInfos);
+        }
     }
 
     @Override
