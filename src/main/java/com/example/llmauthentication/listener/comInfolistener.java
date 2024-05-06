@@ -19,6 +19,7 @@ public class comInfolistener extends AnalysisEventListener<ComInfo> {
     public void invoke(ComInfo comInfo, AnalysisContext analysisContext) {
 
         comInfoMapper.insert(comInfo);
+
     }
 
     @Override
