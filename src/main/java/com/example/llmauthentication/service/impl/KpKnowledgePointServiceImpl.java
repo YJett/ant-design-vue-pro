@@ -37,7 +37,7 @@ public class KpKnowledgePointServiceImpl extends ServiceImpl<KpKnowledgePointMap
     private JbAbilityKnowledgeMapper jbAbilityKnowledgeMapper;
 
     @Override
-    public void importKpKonwledgeData(MultipartFile file, String schoolName) {
+    public void importKpKnowledgeData(MultipartFile file, String schoolName) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("schName",schoolName);
         SchInfo schInfo = schInfoMapper.selectOne(queryWrapper);

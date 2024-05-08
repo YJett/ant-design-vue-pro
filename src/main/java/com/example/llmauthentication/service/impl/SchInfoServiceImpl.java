@@ -36,22 +36,12 @@ public class SchInfoServiceImpl extends ServiceImpl<SchInfoMapper, SchInfo>
     private SchInfoListener schInfoListener;
 
     @Override
-    public List<String> getAllSchNames() {
+    public List<SchInfo> getAllSchInfo() {
         List<SchInfo> schInfos = schInfoMapper.selectList(null);
-        schInfos.stream()
-                .filter(schInfo -> "1".equals(schInfo.getStatus())) // 过滤status字段为1的学校
-                .map(SchInfo::getSchName)
+        return schInfos.stream()
+                .filter(schInfo -> "1".equals(schInfo.getStatus())) // Filter schools with status 1
                 .collect(Collectors.toList());
-
-        List<String> schNames = new ArrayList<>();
-        for(SchInfo schInfo:schInfos){
-            String schName = schInfo.getSchName();
-
-            schNames.add(schName);
-        }
-        return schNames;
     }
-
     @Override
     public boolean deleteSch(Long id) {
        SchInfo sch = this.getById(id);

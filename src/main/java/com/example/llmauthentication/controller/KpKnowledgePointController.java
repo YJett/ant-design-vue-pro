@@ -15,14 +15,14 @@ import java.io.IOException;
 @Slf4j
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/konwledge")
-public class KpKonwledgePointController {
+@RequestMapping("api/knowledge")
+public class KpKnowledgePointController {
     @Autowired
     private KpKnowledgePointService kpKnowledgePointService;
     @Autowired
     private SchInfoMapper schInfoMapper;
-    @PostMapping("/importKpKonwledgeData")
-    public Result<Integer> importKpKonwledgeData(@RequestParam("file") MultipartFile file,@RequestParam("schoolName") String schoolName){
+    @PostMapping("/importKpKnowledgeData")
+    public Result<Integer> importKpKnowledgeData(@RequestParam("file") MultipartFile file,@RequestParam("schoolName") String schoolName){
         //监听器的版本
         //kpKnowledgePointService.importKpKonwledgeData(file,schoolName);
 

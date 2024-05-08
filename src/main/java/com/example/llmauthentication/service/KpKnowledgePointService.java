@@ -14,7 +14,7 @@ import java.io.IOException;
 public interface KpKnowledgePointService extends IService<KpKnowledgePoint> {
 
 
-    void importKpKonwledgeData(MultipartFile file, String schoolName);
+    void importKpKnowledgeData(MultipartFile file, String schoolName);
 
     void importKnowledgeData(MultipartFile file, Integer schId) throws IOException;
 }

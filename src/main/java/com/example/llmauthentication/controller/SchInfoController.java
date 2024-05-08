@@ -30,10 +30,10 @@ public class SchInfoController {
         return result;
     }
 
-    @GetMapping("/schNames")
-    public Result<List<String>> getSchNames() {
-        List<String> schNames = schInfoService.getAllSchNames();
-        return Result.success(schNames);
+    @GetMapping("/schInfo")
+    public Result<List<SchInfo>> getSchInfo() {
+        List<SchInfo> schInfoList = schInfoService.getAllSchInfo();
+        return Result.success(schInfoList);
     }
     @GetMapping("/page")
     public PageResult<SchInfo> getSchPage(

@@ -17,7 +17,7 @@ import java.util.List;
 public interface SchInfoService extends IService<SchInfo> {
     Result login(String schName, String password);
 
-    List<String> getAllSchNames();
+    List<SchInfo> getAllSchInfo();
 
     Page<SchInfo> getSchPage(int current, int size, String email, String schName);
 
