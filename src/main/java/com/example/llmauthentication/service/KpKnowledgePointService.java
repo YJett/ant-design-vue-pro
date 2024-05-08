@@ -4,6 +4,8 @@ import com.example.llmauthentication.pojo.KpKnowledgePoint;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 /**
 * @author arthur
 * @description 针对表【kp_knowledge_point】的数据库操作Service
@@ -13,4 +15,6 @@ public interface KpKnowledgePointService extends IService<KpKnowledgePoint> {
 
 
     void importKpKonwledgeData(MultipartFile file, String schoolName);
+
+    void importKnowledgeData(MultipartFile file, Integer schId) throws IOException;
 }

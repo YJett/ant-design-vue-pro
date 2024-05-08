@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Data;
 
@@ -25,9 +26,9 @@ public class KpKnowledgePoint implements Serializable {
     @ExcelProperty(value = "上级知识点编号",index = 3)
     private Integer uplevel;
 
-    private Date createtime;
+    private LocalDateTime createtime;
 
-    private Date updatetime;
+    private LocalDateTime updatetime;
 
     private static final long serialVersionUID = 1L;
 }

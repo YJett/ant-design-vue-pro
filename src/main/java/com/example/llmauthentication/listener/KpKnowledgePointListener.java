@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 
 public class KpKnowledgePointListener extends AnalysisEventListener<KpKnowledgePoint> {
     private Integer schId;
-    @Resource
+    @Autowired
     private KpKnowledgePointMapper kpKnowledgePointMapper;
     @Resource
     private JbAbilityKnowledgeMapper jbAbilityKnowledgeMapper;
