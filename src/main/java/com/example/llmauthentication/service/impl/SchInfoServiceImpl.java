@@ -18,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
 * @author arthur
@@ -32,6 +34,23 @@ public class SchInfoServiceImpl extends ServiceImpl<SchInfoMapper, SchInfo>
     private SchInfoMapper schInfoMapper;
     @Resource
     private SchInfoListener schInfoListener;
+
+    @Override
+    public List<String> getAllSchNames() {
+        List<SchInfo> schInfos = schInfoMapper.selectList(null);
+        schInfos.stream()
+                .filter(schInfo -> "1".equals(schInfo.getStatus())) // 过滤status字段为1的学校
+                .map(SchInfo::getSchName)
+                .collect(Collectors.toList());
+
+        List<String> schNames = new ArrayList<>();
+        for(SchInfo schInfo:schInfos){
+            String schName = schInfo.getSchName();
+
+            schNames.add(schName);
+        }
+        return schNames;
+    }
 
     @Override
     public boolean deleteSch(Long id) {
