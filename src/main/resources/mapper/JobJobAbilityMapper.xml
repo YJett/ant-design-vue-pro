@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.JobJobAbilityMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.JobJobAbility">
+            <id property="itemid" column="itemId" jdbcType="INTEGER"/>
+            <result property="jobid" column="jobId" jdbcType="INTEGER"/>
+            <result property="abilityid" column="abilityId" jdbcType="INTEGER"/>
+            <result property="abilitywt" column="abilityWt" jdbcType="DOUBLE"/>
+            <result property="comment" column="comment" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        itemId,jobId,abilityId,
+        abilityWt,comment,createTime,
+        updateTime
+    </sql>
+</mapper>
