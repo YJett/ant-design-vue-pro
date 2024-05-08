@@ -30,6 +30,11 @@ public class SchInfoController {
         return result;
     }
 
+    @GetMapping("/schNames")
+    public Result<List<String>> getSchNames() {
+        List<String> schNames = schInfoService.getAllSchNames();
+        return Result.success(schNames);
+    }
     @GetMapping("/page")
     public PageResult<SchInfo> getSchPage(
             @RequestParam(value = "pageNum", defaultValue = "1") int currentPage,
