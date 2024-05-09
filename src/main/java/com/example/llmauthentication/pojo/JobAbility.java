@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class JobAbility implements Serializable {
     private Integer abilityid;
 
-    private String abilityno;
+    private Integer abilityno;
 
     private String abilitynm;
 

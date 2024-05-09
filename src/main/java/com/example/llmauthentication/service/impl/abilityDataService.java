@@ -61,7 +61,7 @@ public class abilityDataService {
                 JobAbility ability = new JobAbility();
 
                 ability.setAbilityid(abilityId);
-                ability.setAbilityno(row.getCell(0).getStringCellValue());
+                ability.setAbilityno((int) row.getCell(0).getNumericCellValue());
                 ability.setAbilitynm(row.getCell(1).getStringCellValue());
                 ability.setLevel((int) row.getCell(2).getNumericCellValue());
                 if (row.getCell(3) != null) {

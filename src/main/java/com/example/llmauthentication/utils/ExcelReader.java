@@ -52,16 +52,24 @@ public class ExcelReader {
                 Row row = sheet.getRow(i);
 
                 if (row != null) {
+                    // 确保 knowledgeId 有效
+                    if (row.getCell(0) == null || row.getCell(0).getCellType() != CellType.NUMERIC) {
+                        continue;  // 如果第一个单元格为空或不是数值，则跳过该行
+                    }
                     Integer knowledgeId = (int) row.getCell(0).getNumericCellValue();
 
-                    if (row.getCell(4) != null) {  // 处理能力项编号
+                    // 处理能力项编号
+                    if (row.getCell(4) != null && row.getCell(4).getCellType() == CellType.STRING) {
                         String[] abilityIds = row.getCell(4).getStringCellValue().split(",");
-
                         for (String abilityIdStr : abilityIds) {
+                            if (abilityIdStr.trim().isEmpty()) {
+                                continue;  // 跳过空字符串
+                            }
+
                             JbAbilityKnowledge abilityKnowledge = new JbAbilityKnowledge();
                             abilityKnowledge.setSchid(schId);
                             abilityKnowledge.setKnowledgeid(knowledgeId);
-                            abilityKnowledge.setAbilityid(Integer.parseInt(abilityIdStr));
+                            abilityKnowledge.setAbilityid(Integer.parseInt(abilityIdStr.trim()));  // 确保无空格
                             abilityKnowledge.setCreatetime(LocalDateTime.now());
                             abilityKnowledge.setUpdatetime(LocalDateTime.now());
 
@@ -74,4 +82,7 @@ public class ExcelReader {
 
         return abilityKnowledgeList;
     }
+
+
+
 }

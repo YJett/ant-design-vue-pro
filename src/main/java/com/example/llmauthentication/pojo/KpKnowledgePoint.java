@@ -17,13 +17,13 @@ import lombok.Data;
 @Data
 public class KpKnowledgePoint implements Serializable {
     private Integer schid;
-    @ExcelProperty(value = "知识点编号",index = 0)
+//    @ExcelProperty(value = "知识点编号",index = 0)
     private Integer knowledgeid;
-    @ExcelProperty(value = "知识点名称",index = 1)
+//    @ExcelProperty(value = "知识点名称",index = 1)
     private String knowledgenm;
-    @ExcelProperty(value = "等级",index = 2)
+//    @ExcelProperty(value = "等级",index = 2)
     private Integer flag;
-    @ExcelProperty(value = "上级知识点编号",index = 3)
+//    @ExcelProperty(value = "上级知识点编号",index = 3)
     private Integer uplevel;
 
     private LocalDateTime createtime;
