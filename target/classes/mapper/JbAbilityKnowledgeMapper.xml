@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.JbAbilityKnowledgeMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.JbAbilityKnowledge">
+            <id property="schid" column="schId" jdbcType="INTEGER"/>
+            <id property="abilityid" column="abilityId" jdbcType="INTEGER"/>
+            <id property="knowledgeid" column="knowledgeId" jdbcType="INTEGER"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        schId,abilityId,knowledgeId,
+        createTime,updateTime
+    </sql>
+</mapper>

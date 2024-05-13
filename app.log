@@ -1,0 +1,63 @@
+2024-04-10 15:45:27.544  INFO 6470 --- [main] c.e.l.LlmAuthenticationApplication       : Starting LlmAuthenticationApplication using Java 17.0.10 on jinshanshandebijibendiannao.local with PID 6470 (/Users/arthur/postgraduate/zhong_Boat/ant-design-vue-pro/target/classes started by arthur in /Users/arthur/postgraduate/zhong_Boat/ant-design-vue-pro)
+2024-04-10 15:45:27.546  INFO 6470 --- [main] c.e.l.LlmAuthenticationApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-04-10 15:45:28.021  INFO 6470 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2024-04-10 15:45:28.025  INFO 6470 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-04-10 15:45:28.025  INFO 6470 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.69]
+2024-04-10 15:45:28.059  INFO 6470 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-04-10 15:45:28.059  INFO 6470 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 490 ms
+2024-04-10 15:45:28.087  INFO 6470 --- [main] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2024-04-10 15:45:28.625  INFO 6470 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2024-04-10 15:45:28.671  INFO 6470 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://202.120.84.249:3306/boat?useSSL=false'
+2024-04-10 15:45:28.785  WARN 6470 --- [main] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.example.llmauthentication.pojo.UserInfo".
+2024-04-10 15:45:28.788  WARN 6470 --- [main] c.b.m.core.injector.DefaultSqlInjector   : class com.example.llmauthentication.pojo.UserInfo ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-04-10 15:45:28.921  INFO 6470 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2024-04-10 15:45:29.050  INFO 6470 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-04-10 15:45:29.077  INFO 6470 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2024-04-10 15:45:29.084  INFO 6470 --- [main] c.e.l.LlmAuthenticationApplication       : Started LlmAuthenticationApplication in 1.691 seconds (JVM running for 2.008)
+2024-04-10 15:45:29.255  INFO 6470 --- [RMI TCP Connection(2)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-10 15:45:29.256  INFO 6470 --- [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-04-10 15:45:29.256  INFO 6470 --- [RMI TCP Connection(2)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2024-04-10 16:05:52.329  INFO 6470 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2024-04-10 16:05:52.331  INFO 6470 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2024-04-10 16:44:38.431  INFO 8238 --- [main] c.e.l.LlmAuthenticationApplication       : Starting LlmAuthenticationApplication using Java 17.0.10 on jinshanshandebijibendiannao.local with PID 8238 (/Users/arthur/postgraduate/zhong_Boat/ant-design-vue-pro/target/classes started by arthur in /Users/arthur/postgraduate/zhong_Boat/ant-design-vue-pro)
+2024-04-10 16:44:38.432  INFO 8238 --- [main] c.e.l.LlmAuthenticationApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-04-10 16:44:38.895  INFO 8238 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2024-04-10 16:44:38.898  INFO 8238 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-04-10 16:44:38.898  INFO 8238 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.69]
+2024-04-10 16:44:38.932  INFO 8238 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-04-10 16:44:38.932  INFO 8238 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 479 ms
+2024-04-10 16:44:38.961  INFO 8238 --- [main] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2024-04-10 16:44:39.518  INFO 8238 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2024-04-10 16:44:39.572  INFO 8238 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://202.120.84.249:3306/boat?useSSL=false'
+2024-04-10 16:44:39.679  WARN 8238 --- [main] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.example.llmauthentication.pojo.UserInfo".
+2024-04-10 16:44:39.680  WARN 8238 --- [main] c.b.m.core.injector.DefaultSqlInjector   : class com.example.llmauthentication.pojo.UserInfo ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-04-10 16:44:39.812  INFO 8238 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2024-04-10 16:44:39.939  INFO 8238 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-04-10 16:44:39.965  INFO 8238 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2024-04-10 16:44:39.972  INFO 8238 --- [main] c.e.l.LlmAuthenticationApplication       : Started LlmAuthenticationApplication in 1.685 seconds (JVM running for 1.923)
+2024-04-10 16:44:40.260  INFO 8238 --- [RMI TCP Connection(3)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-10 16:44:40.260  INFO 8238 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-04-10 16:44:40.261  INFO 8238 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-04-10 16:53:51.680  INFO 8238 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2024-04-10 16:53:51.682  INFO 8238 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2024-04-10 16:59:52.963  INFO 8827 --- [main] c.e.l.LlmAuthenticationApplication       : Starting LlmAuthenticationApplication using Java 17.0.10 on jinshanshandebijibendiannao.local with PID 8827 (/Users/arthur/postgraduate/zhong_Boat/ant-design-vue-pro/target/classes started by arthur in /Users/arthur/postgraduate/zhong_Boat/ant-design-vue-pro)
+2024-04-10 16:59:52.964  INFO 8827 --- [main] c.e.l.LlmAuthenticationApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-04-10 16:59:53.425  INFO 8827 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2024-04-10 16:59:53.429  INFO 8827 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-04-10 16:59:53.429  INFO 8827 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.69]
+2024-04-10 16:59:53.459  INFO 8827 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-04-10 16:59:53.459  INFO 8827 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 471 ms
+2024-04-10 16:59:53.487  INFO 8827 --- [main] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2024-04-10 16:59:53.983  INFO 8827 --- [main] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2024-04-10 16:59:54.042  INFO 8827 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://202.120.84.249:3306/boat?useSSL=false'
+2024-04-10 16:59:54.145  WARN 8827 --- [main] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.example.llmauthentication.pojo.UserInfo".
+2024-04-10 16:59:54.146  WARN 8827 --- [main] c.b.m.core.injector.DefaultSqlInjector   : class com.example.llmauthentication.pojo.UserInfo ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-04-10 16:59:54.280  INFO 8827 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2024-04-10 16:59:54.401  INFO 8827 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-04-10 16:59:54.426  INFO 8827 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2024-04-10 16:59:54.433  INFO 8827 --- [main] c.e.l.LlmAuthenticationApplication       : Started LlmAuthenticationApplication in 1.619 seconds (JVM running for 1.876)
+2024-04-10 16:59:54.763  INFO 8827 --- [RMI TCP Connection(3)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-10 16:59:54.763  INFO 8827 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-04-10 16:59:54.764  INFO 8827 --- [RMI TCP Connection(3)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-04-10 18:56:51.943  INFO 8827 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2024-04-10 18:56:51.945  INFO 8827 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.KpKnowledgePointMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.KpKnowledgePoint">
+            <id property="schid" column="schId" jdbcType="INTEGER"/>
+            <id property="knowledgeid" column="knowledgeId" jdbcType="INTEGER"/>
+            <result property="knowledgenm" column="knowledgeNm" jdbcType="VARCHAR"/>
+            <result property="flag" column="flag" jdbcType="INTEGER"/>
+            <result property="uplevel" column="upLevel" jdbcType="INTEGER"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        schId,knowledgeId,knowledgeNm,
+        flag,upLevel,createTime,
+        updateTime
+    </sql>
+</mapper>
