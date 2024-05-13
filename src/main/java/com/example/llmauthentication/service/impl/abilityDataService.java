@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -30,46 +31,76 @@ public class abilityDataService {
     @Autowired
     private JobAbilityMapper abilityMapper;
 
-    public void importData(MultipartFile file) throws IOException {
-        List<Object> data = new ArrayList<>();
+    @Autowired
+    private AbilityDataDeleteService abilityDataDeleteService;
 
+    @Transactional
+    public void importData(MultipartFile file) throws IOException {
         try (InputStream is = file.getInputStream(); Workbook workbook = new XSSFWorkbook(is)) {
             Sheet sheet = workbook.getSheetAt(0);
 
-            // 导入岗位表数据
+            // 第一步：导入岗位数据
+            Row firstRow = sheet.getRow(0);
+            Row secondRow = sheet.getRow(1);
+
+            //导入前先删除原有数据
+            String jobName = firstRow.getCell(1).getStringCellValue();
+            abilityDataDeleteService.deleteData(jobName);
+
+
             JbJob job = new JbJob();
-            job.setJobname(sheet.getRow(0).getCell(1).getStringCellValue());
-            job.setJobdesp(sheet.getRow(1).getCell(1).getStringCellValue());
+            job.setJobname(firstRow.getCell(1).getStringCellValue()); // 岗位名称
+
+            // 如果 `JobDescription` 可能为空，使用空值检查
+            if (secondRow != null && secondRow.getCell(1) != null && secondRow.getCell(1).getCellType() == CellType.STRING) {
+                job.setJobdesp(secondRow.getCell(1).getStringCellValue()); // 岗位描述
+            } else {
+                job.setJobdesp(""); // 设置默认值，避免空指针异常
+            }
+
             job.setCreatetime(LocalDateTime.now());
             job.setUpdatetime(LocalDateTime.now());
-            jobMapper.insert(job);
 
-            Integer jobId = job.getJobid();
+            jobMapper.insert(job); // 插入岗位
+            Integer jobId = job.getJobid(); // 获取岗位 ID
 
-            // 导入岗位能力表数据
-            JobJobAbility jobAbility = new JobJobAbility();
-            jobAbility.setJobid(jobId);
-            jobAbility.setAbilityid((int) sheet.getRow(3).getCell(0).getNumericCellValue());
-            jobAbility.setCreatetime(LocalDateTime.now());
-            jobAbility.setUpdatetime(LocalDateTime.now());
-            jobAbilityMapper.insert(jobAbility);
-
-            Integer abilityId =(int) sheet.getRow(3).getCell(0).getNumericCellValue();
-            // 导入能力表数据
-            for (int i = 4; i < sheet.getLastRowNum() + 1; i++) {
+            // 第二步：处理能力数据
+            List<JobAbility> abilities = new ArrayList<>();
+            for (int i = 3; i <= sheet.getLastRowNum(); i++) { // 从第四行开始
                 Row row = sheet.getRow(i);
-                JobAbility ability = new JobAbility();
 
-                ability.setAbilityid(abilityId);
-                ability.setAbilityno((int) row.getCell(0).getNumericCellValue());
-                ability.setAbilitynm(row.getCell(1).getStringCellValue());
-                ability.setLevel((int) row.getCell(2).getNumericCellValue());
-                if (row.getCell(3) != null) {
-                    ability.setUpabilityid((int) row.getCell(3).getNumericCellValue());
+                if (row != null) {
+                    //可能报错
+                    String abilityNo =  row.getCell(0).getStringCellValue(); // 能力编号
+                    String abilityNm = row.getCell(1).getStringCellValue(); // 能力名称
+                    Integer level = (int) row.getCell(2).getNumericCellValue(); // 能力层级
+                    Integer upabilityId = null; // 上层能力编号
+
+                    if (row.getCell(3) != null) {
+                        upabilityId = (int) row.getCell(3).getNumericCellValue();
+                    }
+
+                    JobAbility ability = new JobAbility();
+                    ability.setAbilityno(abilityNo);
+                    ability.setAbilitynm(abilityNm);
+                    ability.setLevel(level);
+                    ability.setUpabilityid(upabilityId);
+                    ability.setCreatetime(LocalDateTime.now());
+                    ability.setUpdatetime(LocalDateTime.now());
+
+                    abilityMapper.insert(ability); // 插入能力
+                    Integer abilityId = ability.getAbilityid(); // 获取能力 ID
+
+                    if (upabilityId == null) { // 如果上级能力编号为空
+                        JobJobAbility jobAbility = new JobJobAbility();
+                        jobAbility.setJobid(jobId);
+                        jobAbility.setAbilityid(abilityId);
+                        jobAbility.setCreatetime(LocalDateTime.now());
+                        jobAbility.setUpdatetime(LocalDateTime.now());
+
+                        jobAbilityMapper.insert(jobAbility); // 插入岗位与能力的关系
+                    }
                 }
-                ability.setCreatetime(LocalDateTime.now());
-                ability.setUpdatetime(LocalDateTime.now());
-                abilityMapper.insert(ability);
             }
         }
     }

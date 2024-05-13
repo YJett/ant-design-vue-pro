@@ -10,11 +10,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExcelReader {
     public static List<KpKnowledgePoint> readKnowledgePoints(MultipartFile file, Integer schId) throws IOException {
         List<KpKnowledgePoint> knowledgePoints = new ArrayList<>();
+
+        Map<String, Integer> flagMapping = new HashMap<>();
+        flagMapping.put("一级", 1);
+        flagMapping.put("二级", 2);
+        flagMapping.put("三级", 3);
 
         try (InputStream is = file.getInputStream(); Workbook workbook = new XSSFWorkbook(is)) {
             Sheet sheet = workbook.getSheetAt(0);
@@ -25,12 +32,25 @@ public class ExcelReader {
                 if (row != null) {
                     KpKnowledgePoint knowledgePoint = new KpKnowledgePoint();
                     knowledgePoint.setSchid(schId);
-                    knowledgePoint.setKnowledgeid((int) row.getCell(0).getNumericCellValue());
-                    knowledgePoint.setKnowledgenm(row.getCell(1).getStringCellValue());
-                    knowledgePoint.setFlag((int) row.getCell(2).getNumericCellValue());
-                    if (row.getCell(3) != null) {
+
+                    // 确保所有单元格存在并且正确类型
+                    if (row.getCell(0) != null && row.getCell(0).getCellType() == CellType.NUMERIC) {
+                        knowledgePoint.setKnowledgeid((int) row.getCell(0).getNumericCellValue());
+                    }
+
+                    if (row.getCell(1) != null && row.getCell(1).getCellType() == CellType.STRING) {
+                        knowledgePoint.setKnowledgenm(row.getCell(1).getStringCellValue());
+                    }
+
+                    if (row.getCell(2) != null && row.getCell(2).getCellType() == CellType.STRING) {
+                        String flagValue = row.getCell(2).getStringCellValue();
+                        knowledgePoint.setFlag(flagMapping.getOrDefault(flagValue, 0)); // 默认值0
+                    }
+
+                    if (row.getCell(3) != null && row.getCell(3).getCellType() == CellType.NUMERIC) {
                         knowledgePoint.setUplevel((int) row.getCell(3).getNumericCellValue());
                     }
+
                     knowledgePoint.setCreatetime(LocalDateTime.now());
                     knowledgePoint.setUpdatetime(LocalDateTime.now());
 

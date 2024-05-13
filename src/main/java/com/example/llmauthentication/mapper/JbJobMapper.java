@@ -2,6 +2,8 @@ package com.example.llmauthentication.mapper;
 
 import com.example.llmauthentication.pojo.JbJob;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author arthur
@@ -11,6 +13,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface JbJobMapper extends BaseMapper<JbJob> {
 
+    @Delete("delete from jb_job where jobname = #{jobName}")
+    void deleteByJobName(@Param("jobName") String jobName);
 }
 
 

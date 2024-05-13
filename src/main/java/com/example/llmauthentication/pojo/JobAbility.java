@@ -15,9 +15,10 @@ import java.time.LocalDateTime;
 @TableName(value ="job_ability")
 @Data
 public class JobAbility implements Serializable {
+    @TableId
     private Integer abilityid;
 
-    private Integer abilityno;
+    private String abilityno;
 
     private String abilitynm;
 
