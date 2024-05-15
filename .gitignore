@@ -39,7 +39,7 @@ build/
 
 ### VS Code ###
 .vscode/
-log
+/log/
 target
 
 ./log
