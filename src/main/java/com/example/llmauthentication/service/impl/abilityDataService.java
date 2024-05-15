@@ -105,7 +105,7 @@ public class abilityDataService {
                     }
 
                     JobAbility ability = new JobAbility();
-
+                    ability.setJobid(jobid);
                     ability.setAbilityno(abilityNo);
                     ability.setAbilitynm(abilityNm);
                     ability.setLevel(level);
