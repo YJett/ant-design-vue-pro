@@ -43,5 +43,7 @@ build/
 target
 
 ./log
+.idea/
+log/
 
 app.log
