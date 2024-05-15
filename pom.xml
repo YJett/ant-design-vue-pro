@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
-    <artifactId>LLMAuthentication</artifactId>
+    <artifactId>Boat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Boat</name>
-    <description>LLMAuthentication</description>
+    <description>Boat</description>
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
