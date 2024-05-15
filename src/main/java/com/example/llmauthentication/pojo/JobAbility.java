@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @TableName(value ="job_ability")
 @Data
 public class JobAbility implements Serializable {
-    @TableId
+    @TableId(value = "abilityId",type = IdType.AUTO)
     private Integer abilityid;
 
     private String abilityno;
@@ -29,6 +29,8 @@ public class JobAbility implements Serializable {
     private LocalDateTime createtime;
 
     private LocalDateTime updatetime;
+
+    private Integer jobid;
 
     private static final long serialVersionUID = 1L;
 }

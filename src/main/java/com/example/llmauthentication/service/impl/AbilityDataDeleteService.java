@@ -18,14 +18,14 @@ public class AbilityDataDeleteService {
     @Autowired
     private JobAbilityMapper abilityMapper;
 
-    public void deleteData(String jobName) {
+    public void deleteData(Integer jobid) {
         // 1. 删除能力
-        abilityMapper.deleteByJobName(jobName);
+        abilityMapper.deleteByJobName(jobid);
 
         // 2. 删除岗位能力关联
-        jobAbilityMapper.deleteByJobName(jobName);
+        jobAbilityMapper.deleteByJobName(jobid);
 
         // 3. 删除岗位
-        jobMapper.deleteByJobName(jobName);
+        jobMapper.deleteByJobName(jobid);
     }
 }

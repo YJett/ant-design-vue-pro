@@ -13,8 +13,8 @@ import org.apache.ibatis.annotations.Param;
 */
 public interface JobJobAbilityMapper extends BaseMapper<JobJobAbility> {
 
-    @Delete("delete from job_job_ability where jobid = (select jobid from jb_job where jobname = #{jobName})")
-    void deleteByJobName(@Param("jobName") String jobName);
+    @Delete("delete from job_job_ability where jobId = #{jobid}")
+    void deleteByJobName(@Param("jobid") Integer jobid);
 }
 
 
