@@ -24,7 +24,6 @@ public class CourseInfo implements Serializable {
     /**
      * 学校ID
      */
-    @TableId
     private Integer schid;
 
     /**
