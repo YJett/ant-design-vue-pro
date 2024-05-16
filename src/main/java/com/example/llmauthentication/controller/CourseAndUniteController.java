@@ -21,7 +21,7 @@ public class CourseAndUniteController {
     @Autowired
     private CourseInfoService courseInfoService;
     @Autowired
-    private ComInfoMapper comInfoMapper;
+    private CourseInfoMapper courseInfoMapper;
     @Autowired
     private UnitInfoMapper unitInfoMapper;
     @Autowired
@@ -40,7 +40,7 @@ public class CourseAndUniteController {
         //插入前先删除原来的数据
         QueryWrapper queryWrapper1 = new QueryWrapper();
         queryWrapper1.eq("schId",schId);
-        comInfoMapper.delete(queryWrapper1);
+        courseInfoMapper.delete(queryWrapper1);
         // todo 单元信息删除
         //unitInfoMapper.delete(queryWrapper1);
 
