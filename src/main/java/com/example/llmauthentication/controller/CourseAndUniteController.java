@@ -47,6 +47,7 @@ public class CourseAndUniteController {
 
         try {
             courseInfoService.importCourseData(file, schId);
+            //todo 单元信息导入
             return Result.success();
         } catch (IOException e) {
             return Result.failed("导入失败");
