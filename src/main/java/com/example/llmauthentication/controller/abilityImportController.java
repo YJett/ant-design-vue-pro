@@ -1,5 +1,6 @@
 package com.example.llmauthentication.controller;
 
+import com.example.llmauthentication.common.result.Result;
 import com.example.llmauthentication.service.impl.abilityDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,16 @@ public class abilityImportController {
     private abilityDataService dataService;
 
     @PostMapping("api/importAbilityData")
-    public String importData(@RequestParam("file") MultipartFile file) {
+    public Result importData(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            return "No file uploaded";
+            return Result.failed("文件传输失败");
         }
 
         try {
             dataService.importData(file);
-            return "Data imported successfully!";
+            return Result.success();
         } catch (IOException e) {
-            return "Error during import: " + e.getMessage();
+            return Result.failed("IO异常");
         }
     }
 }
