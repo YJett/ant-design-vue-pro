@@ -9,7 +9,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 
+ *
  * @TableName unit_info
  */
 @TableName(value ="unit_info")
@@ -18,7 +18,7 @@ public class UnitInfo implements Serializable {
     /**
      * 学校ID
      */
-    @TableId
+
     private Integer schid;
 
     /**
