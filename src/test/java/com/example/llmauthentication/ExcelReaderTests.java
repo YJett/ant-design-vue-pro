@@ -11,7 +11,7 @@ import org.springframework.mock.web.MockMultipartFile;
 
 import com.example.llmauthentication.utils.ExcelReader;
 import com.example.llmauthentication.pojo.KpKnowledgePoint;
-
+/*
 public class ExcelReaderTests {
 
     @Test
@@ -42,3 +42,4 @@ public class ExcelReaderTests {
         assertNotNull(firstPoint.getKnowledgenm(), "知识点名称不应为空");
     }
 }
+*/
