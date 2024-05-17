@@ -84,7 +84,7 @@ public class abilityDataService {
             job.setUpdatetime(LocalDateTime.now());
 
             jobMapper.insert(job); // 插入岗位
-            Integer jobId = job.getJobid(); // 获取岗位 ID
+            Integer jobIdNew = job.getJobid(); // 获取岗位 ID
 
             // 第二步：处理能力数据
             List<JobAbility> abilities = new ArrayList<>();
@@ -105,7 +105,7 @@ public class abilityDataService {
                     }
 
                     JobAbility ability = new JobAbility();
-                    ability.setJobid(jobId);
+                    ability.setJobid(jobIdNew);
                     ability.setAbilityno(abilityNo);
                     ability.setAbilitynm(abilityNm);
                     ability.setLevel(level);
@@ -118,7 +118,7 @@ public class abilityDataService {
 
                     if (upabilityId == null) { // 如果上级能力编号为空
                         JobJobAbility jobAbility = new JobJobAbility();
-                        jobAbility.setJobid(jobId);
+                        jobAbility.setJobid(jobIdNew);
                         jobAbility.setAbilityid(abilityId);
                         jobAbility.setCreatetime(LocalDateTime.now());
                         jobAbility.setUpdatetime(LocalDateTime.now());

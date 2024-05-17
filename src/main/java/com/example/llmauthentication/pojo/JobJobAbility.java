@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @TableName(value ="job_job_ability")
 @Data
 public class JobJobAbility implements Serializable {
+    @TableId(value = "itemId",type = IdType.AUTO)
     private Integer itemid;
 
     private Integer jobid;
