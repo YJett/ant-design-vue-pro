@@ -4,7 +4,6 @@ import com.example.llmauthentication.pojo.JbJob;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
-
 /**
 * @author arthur
 * @description 针对表【jb_job】的数据库操作Mapper
