@@ -36,7 +36,7 @@ public class CourseInfoServiceImpl extends ServiceImpl<CourseInfoMapper, CourseI
         try (InputStream is = file.getInputStream(); Workbook workbook = new XSSFWorkbook(is)) {
             // 导入课程信息
             importCourseInfo(workbook.getSheetAt(0), schId);
-
+            //todo 单元信息
         }
     }
 
@@ -54,16 +54,34 @@ public class CourseInfoServiceImpl extends ServiceImpl<CourseInfoMapper, CourseI
             if (row != null) {
                 CourseInfo courseInfo = new CourseInfo();
                 courseInfo.setSchid(schid);
-                courseInfo.setCourseno(row.getCell(0).getStringCellValue());
-                courseInfo.setCoursenm(row.getCell(1).getStringCellValue());
-                courseInfo.setClasshour((int) row.getCell(2).getNumericCellValue());
-                courseInfo.setCredit((int) row.getCell(3).getNumericCellValue());
-                courseInfo.setTeacher(row.getCell(4).getStringCellValue());
-                courseInfo.setUnits((int) row.getCell(5).getNumericCellValue());
-                Integer flag = (int) row.getCell(6).getNumericCellValue();
-                courseInfo.setFlg(flagMapping.getOrDefault(flag,"理论课"));
-                courseInfo.setKnowledgeid((int) row.getCell(7).getNumericCellValue());
-                courseInfo.setType(row.getCell(8).getStringCellValue());
+                if (row.getCell(0) != null) {
+                    courseInfo.setCourseno(row.getCell(0).getStringCellValue());
+                }
+                if (row.getCell(1) != null) {
+                    courseInfo.setCoursenm(row.getCell(1).getStringCellValue());
+                }
+                if (row.getCell(2) != null) {
+                    courseInfo.setClasshour((int) row.getCell(2).getNumericCellValue());
+                }
+                if (row.getCell(3) != null) {
+                    courseInfo.setCredit((int) row.getCell(3).getNumericCellValue());
+                }
+                if (row.getCell(4) != null) {
+                    courseInfo.setTeacher(row.getCell(4).getStringCellValue());
+                }
+                if (row.getCell(5) != null) {
+                    courseInfo.setUnits((int) row.getCell(5).getNumericCellValue());
+                }
+                if (row.getCell(6) != null) {
+                    Integer flag = (int) row.getCell(6).getNumericCellValue();
+                    courseInfo.setFlg(flagMapping.getOrDefault(flag,"理论课"));
+                }
+                if (row.getCell(7) != null) {
+                    courseInfo.setKnowledgeid((int) row.getCell(7).getNumericCellValue());
+                }
+                if (row.getCell(8) != null) {
+                    courseInfo.setType(row.getCell(8).getStringCellValue());
+                }
                 courseInfo.setCreatetime(new Date());
                 courseInfo.setUpdatetime(new Date());
                 courseInfoMapper.insert(courseInfo);

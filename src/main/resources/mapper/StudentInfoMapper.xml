@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.StudentInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.StudentInfo">
+            <id property="studentid" column="studentId" jdbcType="INTEGER"/>
+            <id property="schid" column="schId" jdbcType="INTEGER"/>
+            <result property="studentnm" column="studentNm" jdbcType="VARCHAR"/>
+            <result property="birthday" column="birthday" jdbcType="VARCHAR"/>
+            <result property="major" column="major" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="schnm" column="schNm" jdbcType="VARCHAR"/>
+            <result property="department" column="department" jdbcType="VARCHAR"/>
+            <result property="studentclass" column="studentclass" jdbcType="VARCHAR"/>
+            <result property="studentno" column="studentNo" jdbcType="VARCHAR"/>
+            <result property="gender" column="gender" jdbcType="VARCHAR"/>
+            <result property="enrollmentDate" column="enrollment_date" jdbcType="VARCHAR"/>
+            <result property="party" column="party" jdbcType="VARCHAR"/>
+            <result property="hometown" column="hometown" jdbcType="VARCHAR"/>
+            <result property="health" column="health" jdbcType="VARCHAR"/>
+            <result property="disability" column="disability" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        studentId,schId,studentNm,
+        birthday,major,createTime,
+        updateTime,schNm,department,
+        class,studentNo,gender,
+        enrollment_date,party,hometown,
+        health,disability
+    </sql>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.WorkStudyInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.WorkStudyInfo">
+            <result property="schid" column="schId" jdbcType="INTEGER"/>
+            <result property="studentno" column="studentNo" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="prizes" column="prizes" jdbcType="DOUBLE"/>
+            <result property="unit" column="unit" jdbcType="VARCHAR"/>
+            <result property="startDate" column="start_date" jdbcType="VARCHAR"/>
+            <result property="endDate" column="end_date" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        schId,studentNo,name,
+        prizes,unit,start_date,
+        end_date,createTime,updateTime
+    </sql>
+</mapper>
