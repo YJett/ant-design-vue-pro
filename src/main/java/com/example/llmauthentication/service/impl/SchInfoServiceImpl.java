@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.llmauthentication.common.result.Result;
 import com.example.llmauthentication.listener.SchInfoListener;
 import com.example.llmauthentication.mapper.SchInfoMapper;
-import com.example.llmauthentication.pojo.ComInfo;
 import com.example.llmauthentication.pojo.SchInfo;
 import com.example.llmauthentication.pojo.SchInfoVo;
 import com.example.llmauthentication.service.SchInfoService;
