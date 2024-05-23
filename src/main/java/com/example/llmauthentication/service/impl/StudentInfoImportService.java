@@ -97,11 +97,11 @@ public class StudentInfoImportService {
             //导入技能证书情况
             //importCertificateInfo(workbook.getSheet("技能证书情况"),schId);
             //导入竞赛获奖
-            importContestInfo(workbook.getSheet("技能证书情况"),schId);
+            //importContestInfo(workbook.getSheet("技能证书情况"),schId);
             //导入参与社团情况
-            importAssociationIn(workbook.getSheet("参与社团情况"),schId);
+            //importAssociationIn(workbook.getSheet("参与社团情况"),schId);
             //导入考勤情况
-            importAttendanceInfo(workbook.getSheet("考勤情况"),schId);
+            //importAttendanceInfo(workbook.getSheet("考勤情况"),schId);
         }
     }
 
