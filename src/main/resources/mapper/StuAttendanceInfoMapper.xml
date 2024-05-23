@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.StuAttendanceInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.StuAttendanceInfo">
+            <result property="schid" column="schId" jdbcType="INTEGER"/>
+            <result property="courseno" column="courseNo" jdbcType="VARCHAR"/>
+            <result property="coursenm" column="courseNm" jdbcType="VARCHAR"/>
+            <result property="studentname" column="studentName" jdbcType="VARCHAR"/>
+            <result property="studentno" column="studentNo" jdbcType="VARCHAR"/>
+            <result property="department" column="department" jdbcType="VARCHAR"/>
+            <result property="major" column="major" jdbcType="VARCHAR"/>
+            <result property="studentclass" column="studentclass" jdbcType="VARCHAR"/>
+            <result property="inEnthusiasm" column="in_enthusiasm" jdbcType="DOUBLE"/>
+            <result property="outEnthusiasm" column="out_enthusiasm" jdbcType="DOUBLE"/>
+            <result property="score" column="score" jdbcType="DOUBLE"/>
+            <result property="regularGrade" column="regular_grade" jdbcType="DOUBLE"/>
+            <result property="points" column="points" jdbcType="DOUBLE"/>
+            <result property="attendanceRate" column="attendance_rate" jdbcType="DOUBLE"/>
+            <result property="attendance" column="attendance" jdbcType="INTEGER"/>
+            <result property="really" column="really" jdbcType="INTEGER"/>
+            <result property="absent" column="absent" jdbcType="INTEGER"/>
+            <result property="late" column="late" jdbcType="INTEGER"/>
+            <result property="early" column="early" jdbcType="INTEGER"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="leave" column="leave" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        schId,courseNo,courseNm,
+        studentName,studentNo,department,
+        major,studentclass,in_enthusiasm,
+        out_enthusiasm,score,regular_grade,
+        points,attendance_rate,attendance,
+        really,absent,late,
+        early,createTime,updateTime,
+        leave
+    </sql>
+</mapper>

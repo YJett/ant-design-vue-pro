@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.GreenChannelsApplyMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.GreenChannelsApply">
+            <result property="schid" column="schId" jdbcType="INTEGER"/>
+            <result property="studentno" column="studentNo" jdbcType="VARCHAR"/>
+            <result property="amt" column="amt" jdbcType="DOUBLE"/>
+            <result property="delayclass" column="delayclass" jdbcType="VARCHAR"/>
+            <result property="apply" column="apply" jdbcType="VARCHAR"/>
+            <result property="incomeType" column="income_type" jdbcType="VARCHAR"/>
+            <result property="income" column="income" jdbcType="DOUBLE"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        schId,studentNo,amt,
+        delayclass,apply,income_type,
+        income,createTime,updateTime
+    </sql>
+</mapper>

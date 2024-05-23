@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.DormitoryHealthInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.DormitoryHealthInfo">
+            <result property="schid" column="schId" jdbcType="INTEGER"/>
+            <result property="studentno" column="studentNo" jdbcType="VARCHAR"/>
+            <result property="roomNo" column="room_no" jdbcType="VARCHAR"/>
+            <result property="level" column="level" jdbcType="VARCHAR"/>
+            <result property="checkDate" column="check_date" jdbcType="DATE"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        schId,studentNo,room_no,
+        level,check_date,createTime,
+        updateTime
+    </sql>
+</mapper>

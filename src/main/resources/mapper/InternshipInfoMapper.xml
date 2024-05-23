@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.InternshipInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.InternshipInfo">
+            <result property="schid" column="schId" jdbcType="INTEGER"/>
+            <result property="studentno" column="studentNo" jdbcType="VARCHAR"/>
+            <result property="industryCd" column="industry_cd" jdbcType="VARCHAR"/>
+            <result property="internshipEnterprise" column="Internship_enterprise" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="duratio" column="duratio" jdbcType="INTEGER"/>
+            <result property="score" column="score" jdbcType="INTEGER"/>
+            <result property="startDate" column="start_date" jdbcType="VARCHAR"/>
+            <result property="endDate" column="end_date" jdbcType="VARCHAR"/>
+            <result property="violationFlg" column="violation_flg" jdbcType="VARCHAR"/>
+            <result property="violation" column="violation" jdbcType="VARCHAR"/>
+            <result property="judgement" column="judgement" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        schId,studentNo,industry_cd,
+        Internship_enterprise,content,duratio,
+        score,start_date,end_date,
+        violation_flg,violation,judgement,
+        createTime,updateTime
+    </sql>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.CertificateInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.CertificateInfo">
+            <result property="schid" column="schId" jdbcType="INTEGER"/>
+            <result property="studentno" column="studentNo" jdbcType="VARCHAR"/>
+            <result property="institution" column="institution" jdbcType="VARCHAR"/>
+            <result property="level" column="Level" jdbcType="VARCHAR"/>
+            <result property="certiid" column="certiId" jdbcType="VARCHAR"/>
+            <result property="certinm" column="certiNm" jdbcType="VARCHAR"/>
+            <result property="issueDate" column="issue_date" jdbcType="VARCHAR"/>
+            <result property="electronicFlg" column="electronic_flg" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        schId,studentNo,institution,
+        Level,certiId,certiNm,
+        issue_date,electronic_flg,createTime,
+        updateTime
+    </sql>
+</mapper>
