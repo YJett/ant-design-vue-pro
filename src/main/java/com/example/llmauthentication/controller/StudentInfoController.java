@@ -1,5 +1,6 @@
 package com.example.llmauthentication.controller;
 
+import com.example.llmauthentication.common.result.Result;
 import com.example.llmauthentication.service.impl.StudentInfoImportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,14 @@ public class StudentInfoController {
     @Autowired
     private StudentInfoImportService studentInfoImportService;
 
-    @PostMapping("import/studentInfoData")
-    public String importCourseData(@RequestParam("file") MultipartFile file, @RequestParam("schoolName") String schoolName) {
+    @PostMapping("api/import/studentInfoData")
+    public Result importCourseData(@RequestParam("file") MultipartFile file, @RequestParam("schoolName") String schoolName) {
         try {
             studentInfoImportService.importAllStudentData(file, schoolName);
-            return "Import successful";
+            return Result.success();
         } catch (Exception e) {
             e.printStackTrace();
-            return "Import failed: " + e.getMessage();
+            return Result.failed("IO异常");
         }
     }
 }
