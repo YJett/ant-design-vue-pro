@@ -9,7 +9,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 
+ *
  * @TableName work_study_info
  */
 @TableName(value ="work_study_info")
@@ -43,12 +43,12 @@ public class WorkStudyInfo implements Serializable {
     /**
      * 工作开始日期（YYYYMM）
      */
-    private String startDate;
+    private Date startDate;
 
     /**
      * 工作结束日期（YYYYMM）
      */
-    private String endDate;
+    private Date endDate;
 
     /**
      * 创建时间

@@ -35,7 +35,7 @@ public class StudentInfo implements Serializable {
     /**
      * 出生日期
      */
-    private String birthday;
+    private Date birthday;
 
     /**
      * 专业
@@ -81,7 +81,7 @@ public class StudentInfo implements Serializable {
     /**
      * 入校时间
      */
-    private String enrollmentDate;
+    private Date enrollmentDate;
 
     /**
      * 是否党员（选项）

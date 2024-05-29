@@ -9,7 +9,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 
+ *
  * @TableName stu_attendance_info
  */
 @TableName(value ="stu_attendance_info")
@@ -124,7 +124,7 @@ public class StuAttendanceInfo implements Serializable {
     /**
      * 请假次数
      */
-    private Integer leave;
+    private Integer leaverequests;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
