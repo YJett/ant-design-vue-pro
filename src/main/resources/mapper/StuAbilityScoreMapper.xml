@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.StuAbilityScoreMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.StuAbilityScore">
+            <id property="itemid" column="itemId" jdbcType="INTEGER"/>
+            <result property="jobid" column="jobid" jdbcType="INTEGER"/>
+            <result property="schid" column="schId" jdbcType="INTEGER"/>
+            <result property="studentid" column="studentId" jdbcType="INTEGER"/>
+            <result property="abilityid" column="abilityId" jdbcType="INTEGER"/>
+            <result property="score" column="score" jdbcType="DOUBLE"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="lv" column="lv" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="AbilityScoreResultMap" type="com.example.llmauthentication.dto.AbilityScore">
+        <id property="abilityNo" column="abilityid" jdbcType="INTEGER"/>
+        <result property="abilityNm" column="abilityNm" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="DOUBLE"/>
+    </resultMap>
+
+
+
+    <select id="callSF_INS_ABILITY">
+        {call SF_INS_ABILITY(#{IN_JOBID, mode=IN, jdbcType=INTEGER}, #{IN_SCHID, mode=IN, jdbcType=INTEGER}, #{IN_STUNO, mode=IN, jdbcType=VARCHAR})}
+    </select>
+
+
+    <select id="getAbilityScores" resultMap="AbilityScoreResultMap">
+        SELECT a.abilityNo AS abilityid, a.abilityNm AS abilityNm, IFNULL(s.score, 0) AS score
+        FROM job_ability a
+                 LEFT OUTER JOIN stu_ability_score s ON s.abilityId = a.abilityno AND s.schId = #{schId} AND s.studentId = #{studentId} AND s.lv = #{lv}
+        WHERE a.jobId = #{jobId} AND a.level = #{lv} AND (#{upabilityId} IS NULL OR a.upabilityId = #{upabilityId})
+    </select>
+
+
+
+
+
+    <sql id="Base_Column_List">
+        itemId,jobid,schId,
+        studentId,abilityId,score,
+        createTime,updateTime,lv
+    </sql>
+</mapper>
