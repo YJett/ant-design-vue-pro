@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.JbAbilityScoreMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.JbAbilityScore">
+            <id property="itemid" column="itemId" jdbcType="INTEGER"/>
+            <result property="schid" column="schId" jdbcType="INTEGER"/>
+            <result property="studentid" column="studentId" jdbcType="INTEGER"/>
+            <result property="knowledgeid" column="knowledgeId" jdbcType="INTEGER"/>
+            <result property="score" column="Score" jdbcType="DOUBLE"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        itemId,schId,studentId,
+        knowledgeId,Score,type,
+        createTime,updateTime
+    </sql>
+</mapper>

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class JbAbilityKnowledgeServiceImpl extends ServiceImpl<JbAbilityKnowledgeMapper, JbAbilityKnowledge>
     implements JbAbilityKnowledgeService{
 
+
 }
 
 
