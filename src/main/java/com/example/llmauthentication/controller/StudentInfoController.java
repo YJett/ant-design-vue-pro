@@ -1,14 +1,16 @@
 package com.example.llmauthentication.controller;
 
 import com.example.llmauthentication.common.result.Result;
+import com.example.llmauthentication.pojo.StudentQueryParams;
+import com.example.llmauthentication.service.StudentInfoService;
 import com.example.llmauthentication.service.impl.StudentInfoImportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * // 学生信息导入
@@ -23,6 +25,9 @@ public class StudentInfoController {
     @Autowired
     private StudentInfoImportService studentInfoImportService;
 
+    @Autowired
+    private StudentInfoService studentInfoService;
+
     @PostMapping("api/import/studentInfoData")
     public Result importCourseData(@RequestParam("file") MultipartFile file, @RequestParam("schoolName") String schoolName) {
         try {
@@ -33,4 +38,11 @@ public class StudentInfoController {
             return Result.failed("IO异常");
         }
     }
+
+    @PostMapping("api/studentInfo/query")
+    public Result getStudentInfo(@RequestBody StudentQueryParams params) {
+        List<Map<String, Object>> result = studentInfoService.getStudentInfo(params);
+        return Result.success(result);
+    }
 }
+
