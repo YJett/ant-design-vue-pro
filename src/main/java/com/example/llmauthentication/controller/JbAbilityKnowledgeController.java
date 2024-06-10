@@ -28,18 +28,9 @@ public class JbAbilityKnowledgeController {
     }
 
     @PostMapping("/insert")
-    public Result save(
-            @RequestParam Integer schid,
-            @RequestParam Integer abilityid,
-            @RequestParam Integer knowledgeid,
-            @RequestParam(required = false) LocalDateTime createtime,
-            @RequestParam(required = false) LocalDateTime updatetime) {
-        JbAbilityKnowledge jbAbilityKnowledge = new JbAbilityKnowledge();
-        jbAbilityKnowledge.setSchid(schid);
-        jbAbilityKnowledge.setAbilityid(abilityid);
-        jbAbilityKnowledge.setKnowledgeid(knowledgeid);
-        jbAbilityKnowledge.setCreatetime(createtime != null ? createtime : LocalDateTime.now());
-        jbAbilityKnowledge.setUpdatetime(updatetime != null ? updatetime : LocalDateTime.now());
+    public Result save(@RequestBody JbAbilityKnowledge jbAbilityKnowledge) {
+        jbAbilityKnowledge.setCreatetime(LocalDateTime.now());
+        jbAbilityKnowledge.setUpdatetime(LocalDateTime.now());
         jbAbilityKnowledgeService.save(jbAbilityKnowledge);
         return Result.success();
     }
