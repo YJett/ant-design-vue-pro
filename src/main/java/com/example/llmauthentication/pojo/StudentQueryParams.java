@@ -2,6 +2,8 @@ package com.example.llmauthentication.pojo;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class StudentQueryParams {
     private Integer schid;
@@ -9,7 +11,7 @@ public class StudentQueryParams {
     private Integer abilityId;
     private Double score;
     private String scoreComparison;
-    private String type;
-    private Double minScore;
-    private String minScoreComparison;
+    private List<String> types;
+    private List<Double> minScores;
+    private List<String> minScoreComparisons;
 }
