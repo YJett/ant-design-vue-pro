@@ -9,7 +9,7 @@ public class StudentInfoProvider {
         StudentQueryParams queryParams = (StudentQueryParams) params.get("params");
 
         return new SQL() {{
-            SELECT("i.studentNm, sc.schnm as schName, i.hometown, i.party, a.info as scholarship, " +
+            SELECT("i.studentNm, sc.schName as schName, i.hometown, i.party, a.info as scholarship, " +
                     "b.info as contest, c.info as certificate, g.gpa");
             FROM("student_info i");
             INNER_JOIN("school_info sc ON sc.schid = i.schid");
