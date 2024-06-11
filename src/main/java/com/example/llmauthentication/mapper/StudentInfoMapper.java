@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.llmauthentication.pojo.StudentQueryParams;
 import com.example.llmauthentication.utils.StudentInfoProvider;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
@@ -17,6 +18,12 @@ import java.util.Map;
 * @Entity com.example.llmauthentication.pojo.StudentInfo
 */
 public interface StudentInfoMapper extends BaseMapper<StudentInfo> {
+
+    @Select("CALL SF_INS_ABILITY_ALL()")
+    void callSF_INS_ABILITY_ALL();
+
+    @Select("CALL SF_INS_KNOWLEDGE_ALL()")
+    void callSF_INS_KNOWLEDGE_ALL();
 
     @SelectProvider(type = StudentInfoProvider.class, method = "buildStudentInfoQuery")
     List<Map<String, Object>> getStudentInfo(@Param("params") StudentQueryParams params);
