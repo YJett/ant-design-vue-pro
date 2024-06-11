@@ -12,7 +12,7 @@ public class StudentInfoProvider {
             SELECT("i.studentNm, sc.schName as schName, i.hometown, i.party, a.info as scholarship, " +
                     "b.info as contest, c.info as certificate, g.gpa");
             FROM("student_info i");
-            INNER_JOIN("school_info sc ON sc.schid = i.schid");
+            INNER_JOIN("school_info sc ON sc.schId = i.schId");
             LEFT_OUTER_JOIN("stu_grade_info g ON g.studentno = i.studentno AND g.schid = i.schid");
             LEFT_OUTER_JOIN("(SELECT schid, studentno, group_concat(yyyymm, name, level separator ';') as info " +
                     "FROM scholarship_info s GROUP BY schid, studentno) a ON a.studentno = i.studentno AND a.schid = i.schid");

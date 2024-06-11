@@ -25,10 +25,15 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoMapper, Stude
 
     public List<Map<String, Object>> getStudentInfo(StudentQueryParams params) {
 
+
+        return studentInfoMapper.getStudentInfo(params);
+    }
+
+    @Override
+    public void getNewData() {
         studentInfoMapper.callSF_INS_ABILITY_ALL();
         studentInfoMapper.callSF_INS_KNOWLEDGE_ALL();
 
-        return studentInfoMapper.getStudentInfo(params);
     }
 
 }

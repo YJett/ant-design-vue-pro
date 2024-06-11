@@ -15,4 +15,6 @@ import java.util.Map;
 public interface StudentInfoService extends IService<StudentInfo> {
 
     public List<Map<String, Object>> getStudentInfo(StudentQueryParams params);
+
+    void getNewData();
 }

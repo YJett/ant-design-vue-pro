@@ -44,5 +44,11 @@ public class StudentInfoController {
         List<Map<String, Object>> result = studentInfoService.getStudentInfo(params);
         return Result.success(result);
     }
+
+    @PostMapping("api/studentInfo/getNewData")
+    public Result getNewData() {
+        studentInfoService.getNewData();
+        return Result.success();
+    }
 }
 
