@@ -1,7 +1,10 @@
 package com.example.llmauthentication.service;
 
+import com.example.llmauthentication.pojo.JbJob;
 import com.example.llmauthentication.pojo.JobAbility;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author arthur
@@ -10,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface JobAbilityService extends IService<JobAbility> {
 
+    List<JobAbility> getJobAbilityInfo();
 }
