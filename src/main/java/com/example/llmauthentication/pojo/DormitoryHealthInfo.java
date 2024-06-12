@@ -9,7 +9,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 
+ *
  * @TableName dormitory_health_info
  */
 @TableName(value ="dormitory_health_info")
@@ -30,10 +30,19 @@ public class DormitoryHealthInfo implements Serializable {
      */
     private String roomNo;
 
-    /**
-     * 评价等级
-     */
-    private String level;
+    private String studentclass;
+
+    private  String grade;
+
+    private String studentnm;
+
+    private String domitoryNo;
+
+    private String checkType;
+
+    private int score;
+
+    private int week;
 
     /**
      * 检查时间（YYYYMMDD）

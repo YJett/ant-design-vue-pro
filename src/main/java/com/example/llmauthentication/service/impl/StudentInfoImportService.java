@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * // TODO
@@ -80,43 +81,94 @@ public class StudentInfoImportService {
             queryWrapper1.eq("schId", schId);
             // 导入学生基本信息
             studentInfoMapper.delete(queryWrapper1);
-            importStudentBasicInfo(workbook.getSheet("学生基本信息"), schId, schoolName);
+            Sheet studentBasicInfoSheet = workbook.getSheet("学生基本信息");
+            if (studentBasicInfoSheet != null) {
+                importStudentBasicInfo(studentBasicInfoSheet, schId, schoolName);
+            }
+
             // 导入成绩总揽
             stuGradeInfoMapper.delete(queryWrapper1);
-            importStuGradeInfo(workbook.getSheet("成绩总览"), schId);
-            //导入课程详细信息
+            Sheet stuGradeInfoSheet = workbook.getSheet("成绩总览");
+            if (stuGradeInfoSheet != null) {
+                importStuGradeInfo(stuGradeInfoSheet, schId);
+            }
+
+            // 导入课程详细信息
             stuCourseDataMapper.delete(queryWrapper1);
-            importStuCourseData(workbook.getSheet("课程详细成绩"), schId);
-            //导入奖学金
+            Sheet stuCourseDataSheet = workbook.getSheet("课程详细成绩");
+            if (stuCourseDataSheet != null) {
+                importStuCourseData(stuCourseDataSheet, schId);
+            }
+
+            // 导入奖学金
             scholarshipInfoMapper.delete(queryWrapper1);
-            importScholarShip(workbook.getSheet("奖学金"),schId);
-            //导入勤工助学记录
+            Sheet scholarshipSheet = workbook.getSheet("奖学金");
+            if (scholarshipSheet != null) {
+                importScholarShip(scholarshipSheet, schId);
+            }
+
+            // 导入勤工助学记录
             workStudyInfoMapper.delete(queryWrapper1);
-            importWorkStudyInfo(workbook.getSheet("勤工助学记录"),schId);
-            //导入宿舍卫生信息
+            Sheet workStudySheet = workbook.getSheet("勤工助学记录");
+            if (workStudySheet != null) {
+                importWorkStudyInfo(workStudySheet, schId);
+            }
+
+            // 导入宿舍卫生信息
             dormitoryHealthInfoMapper.delete(queryWrapper1);
-            importDormitoryHealthInfo(workbook.getSheet("宿舍卫生"),schId);
-            //导入绿色通道申请信息
+            Sheet dormitoryHealthSheet = workbook.getSheet("宿舍卫生");
+            if (dormitoryHealthSheet != null) {
+                importDormitoryHealthInfo(dormitoryHealthSheet, schId);
+            }
+
+            // 导入绿色通道申请信息
             greenChannelsApplyMapper.delete(queryWrapper1);
-            importGreenChannels(workbook.getSheet("绿色通道申请"),schId);
-            //导入学生课程考勤情况
+            Sheet greenChannelsSheet = workbook.getSheet("绿色通道申请");
+            if (greenChannelsSheet != null) {
+                importGreenChannels(greenChannelsSheet, schId);
+            }
+
+            // 导入学生课程考勤情况
             stuAttendanceInfoMapper.delete(queryWrapper1);
-            importStuAttendanceInfo(workbook.getSheet("学生课程考勤情况"),schId);
-            //导入实习情况
+            Sheet stuAttendanceSheet = workbook.getSheet("学生课程考勤情况");
+            if (stuAttendanceSheet != null) {
+                importStuAttendanceInfo(stuAttendanceSheet, schId);
+            }
+
+            // 导入实习情况
             internshipInfoMapper.delete(queryWrapper1);
-            importInternshipInfo(workbook.getSheet("实习情况"),schId);
-            //导入技能证书情况
+            Sheet internshipSheet = workbook.getSheet("实习情况");
+            if (internshipSheet != null) {
+                importInternshipInfo(internshipSheet, schId);
+            }
+
+            // 导入技能证书情况
             certificateInfoMapper.delete(queryWrapper1);
-            importCertificateInfo(workbook.getSheet("技能证书情况"),schId);
-            //导入竞赛获奖
+            Sheet certificateSheet = workbook.getSheet("技能证书情况");
+            if (certificateSheet != null) {
+                importCertificateInfo(certificateSheet, schId);
+            }
+
+            // 导入竞赛获奖
             contestInfoMapper.delete(queryWrapper1);
-            importContestInfo(workbook.getSheet("竞赛获奖"),schId);
-            //导入参与社团情况
+            Sheet contestSheet = workbook.getSheet("竞赛获奖");
+            if (contestSheet != null) {
+                importContestInfo(contestSheet, schId);
+            }
+
+            // 导入参与社团情况
             associationInfoMapper.delete(queryWrapper1);
-            importAssociationIn(workbook.getSheet("参与社团情况"),schId);
-            //导入考勤情况
+            Sheet associationSheet = workbook.getSheet("参与社团情况");
+            if (associationSheet != null) {
+                importAssociationIn(associationSheet, schId);
+            }
+
+            // 导入考勤情况
             attendanceInfoMapper.delete(queryWrapper1);
-            importAttendanceInfo(workbook.getSheet("考勤情况"),schId);
+            Sheet attendanceSheet = workbook.getSheet("考勤情况");
+            if (attendanceSheet != null) {
+                importAttendanceInfo(attendanceSheet, schId);
+            }
         }
     }
 
@@ -491,15 +543,39 @@ public class StudentInfoImportService {
                 }
 
                 if (row.getCell(1) != null && row.getCell(1).getCellType() == CellType.STRING) {
-                    dormitoryHealthInfo.setRoomNo(row.getCell(1).getStringCellValue());
+                    dormitoryHealthInfo.setStudentnm(row.getCell(1).getStringCellValue());
                 }
 
                 if (row.getCell(2) != null && row.getCell(2).getCellType() == CellType.STRING) {
-                    dormitoryHealthInfo.setLevel(row.getCell(2).getStringCellValue());
+                    dormitoryHealthInfo.setDomitoryNo(row.getCell(2).getStringCellValue());
                 }
 
-                if (row.getCell(3) != null && row.getCell(3).getCellType() == CellType.NUMERIC) {
-                    dormitoryHealthInfo.setCheckDate(row.getCell(3).getDateCellValue());
+                if (row.getCell(3) != null && row.getCell(3).getCellType() == CellType.STRING) {
+                    dormitoryHealthInfo.setRoomNo(row.getCell(3).getStringCellValue());
+                }
+
+                if (row.getCell(4) != null && row.getCell(4).getCellType() == CellType.STRING) {
+                    dormitoryHealthInfo.setGrade(row.getCell(4).getStringCellValue());
+                }
+
+                if (row.getCell(5) != null && row.getCell(5).getCellType() == CellType.STRING) {
+                    dormitoryHealthInfo.setStudentclass(row.getCell(5).getStringCellValue());
+                }
+
+                if (row.getCell(6) != null && row.getCell(6).getCellType() == CellType.NUMERIC) {
+                    dormitoryHealthInfo.setCheckDate(row.getCell(6).getDateCellValue());
+                }
+
+                if (row.getCell(7) != null && row.getCell(7).getCellType() == CellType.STRING) {
+                    dormitoryHealthInfo.setCheckType(row.getCell(7).getStringCellValue());
+                }
+
+                if (row.getCell(8) != null && row.getCell(8).getCellType() == CellType.NUMERIC) {
+                    dormitoryHealthInfo.setWeek((int) row.getCell(8).getNumericCellValue());
+                }
+
+                if (row.getCell(9) != null && row.getCell(9).getCellType() == CellType.NUMERIC) {
+                    dormitoryHealthInfo.setScore((int) row.getCell(9).getNumericCellValue());
                 }
 
                 dormitoryHealthInfo.setCreatetime(new Date());
