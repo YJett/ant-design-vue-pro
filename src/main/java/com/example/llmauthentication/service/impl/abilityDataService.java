@@ -90,7 +90,8 @@ public class abilityDataService {
 
                 if (row != null) {
                     //可能报错
-                    String abilityNo =  String.valueOf(row.getCell(0).getNumericCellValue()); // 能力编号
+                    double abilityNo = row.getCell(0).getNumericCellValue();
+                    String abilityNoS =  String.valueOf(abilityNo); // 能力编号
                     String abilityNm = row.getCell(1).getStringCellValue(); // 能力名称
                     String stringCellValue = row.getCell(2).getStringCellValue();
                     Integer level = flagMapping.getOrDefault(stringCellValue, 0); // 能力层级
@@ -106,7 +107,7 @@ public class abilityDataService {
 
                     JobAbility ability = new JobAbility();
                     ability.setJobid(jobIdNew);
-                    ability.setAbilityno(abilityNo);
+                    ability.setAbilityno(abilityNoS);
                     ability.setAbilitynm(abilityNm);
                     ability.setLevel(level);
                     ability.setUpabilityid(upabilityId);
@@ -119,7 +120,7 @@ public class abilityDataService {
                     if (upabilityId == null) { // 如果上级能力编号为空
                         JobJobAbility jobAbility = new JobJobAbility();
                         jobAbility.setJobid(jobIdNew);
-                        jobAbility.setAbilityno(Integer.valueOf(abilityNo));
+                        jobAbility.setAbilityno((int) abilityNo);
                         jobAbility.setCreatetime(LocalDateTime.now());
                         jobAbility.setUpdatetime(LocalDateTime.now());
                         jobAbility.setAbilitywt(abilityWt);
