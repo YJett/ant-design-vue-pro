@@ -67,10 +67,6 @@ public class abilityDataService {
                 abilityDataDeleteService.deleteData(jobid);
             }
 
-
-
-
-
             JbJob job = new JbJob();
             job.setJobname(jobName); // 岗位名称
 
@@ -99,7 +95,10 @@ public class abilityDataService {
                     String stringCellValue = row.getCell(2).getStringCellValue();
                     Integer level = flagMapping.getOrDefault(stringCellValue, 0); // 能力层级
                     Integer upabilityId = null; // 上层能力编号
-
+                    double abilityWt = 0;
+                    if(row.getCell(4) != null){
+                        abilityWt = row.getCell(4).getNumericCellValue();
+                    }
 
                     if (row.getCell(3) != null) {
                         upabilityId = (int) row.getCell(3).getNumericCellValue();
@@ -120,10 +119,10 @@ public class abilityDataService {
                     if (upabilityId == null) { // 如果上级能力编号为空
                         JobJobAbility jobAbility = new JobJobAbility();
                         jobAbility.setJobid(jobIdNew);
-                        jobAbility.setAbilityid(abilityId);
+                        jobAbility.setAbilityno(Integer.valueOf(abilityNo));
                         jobAbility.setCreatetime(LocalDateTime.now());
                         jobAbility.setUpdatetime(LocalDateTime.now());
-
+                        jobAbility.setAbilitywt(abilityWt);
                         jobAbilityMapper.insert(jobAbility); // 插入岗位与能力的关系
                     }
                 }

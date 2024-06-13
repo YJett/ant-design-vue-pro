@@ -20,7 +20,7 @@ public class JobJobAbility implements Serializable {
 
     private Integer jobid;
 
-    private Integer abilityid;
+    private Integer abilityno;
 
     private Double abilitywt;
 
