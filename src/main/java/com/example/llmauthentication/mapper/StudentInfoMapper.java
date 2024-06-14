@@ -25,6 +25,9 @@ public interface StudentInfoMapper extends BaseMapper<StudentInfo> {
     @Select("CALL SF_INS_KNOWLEDGE_ALL()")
     void callSF_INS_KNOWLEDGE_ALL();
 
+    @Select("{CALL SF_INS_CHARACTER(#{schId, mode=IN, jdbcType=INTEGER}, #{studentNo, mode=IN, jdbcType=VARCHAR})}")
+    void callSFInsCharacter(@Param("schId") Integer schId, @Param("studentNo") String studentNo);
+
     @SelectProvider(type = StudentInfoProvider.class, method = "buildStudentInfoQuery")
     List<Map<String, Object>> getStudentInfo(@Param("params") StudentQueryParams params);
 }

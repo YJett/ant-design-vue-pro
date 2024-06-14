@@ -2,6 +2,7 @@ package com.example.llmauthentication.service;
 
 import com.example.llmauthentication.pojo.StudentInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.llmauthentication.pojo.StudentLiteracy;
 import com.example.llmauthentication.pojo.StudentQueryParams;
 
 import java.util.List;
@@ -17,4 +18,7 @@ public interface StudentInfoService extends IService<StudentInfo> {
     public List<Map<String, Object>> getStudentInfo(StudentQueryParams params);
 
     void getNewData();
+
+
+    StudentLiteracy getStudentLiteracy(Integer schId, String studentNo);
 }
