@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.llmauthentication.mapper.StuCharacterScoreMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.llmauthentication.pojo.StuCharacterScore">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="schid" column="schId" jdbcType="INTEGER"/>
+            <result property="stuno" column="stuNo" jdbcType="VARCHAR"/>
+            <result property="outstanding" column="outstanding" jdbcType="FLOAT"/>
+            <result property="dedication" column="dedication" jdbcType="FLOAT"/>
+            <result property="workstudy" column="workstudy" jdbcType="FLOAT"/>
+            <result property="participation" column="participation" jdbcType="FLOAT"/>
+            <result property="healty" column="healty" jdbcType="FLOAT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,schId,stuNo,
+        outstanding,dedication,workstudy,
+        participation,healty
+    </sql>
+</mapper>
