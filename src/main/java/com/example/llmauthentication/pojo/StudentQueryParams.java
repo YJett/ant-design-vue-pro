@@ -14,4 +14,9 @@ public class StudentQueryParams {
     private List<String> types;
     private List<Double> minScores;
     private List<String> minScoreComparisons;
+    private String party;
+    private String hometown;
+    private String ainfo;
+    private String binfo;
+    private String cinfo;
 }

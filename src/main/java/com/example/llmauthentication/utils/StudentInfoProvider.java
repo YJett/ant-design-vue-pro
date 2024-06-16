@@ -24,6 +24,21 @@ public class StudentInfoProvider {
             if (queryParams.getSchid() != null) {
                 WHERE("i.schid = #{params.schid}");
             }
+            if (queryParams.getParty() != null) {
+                WHERE("i.party = #{params.party}");
+            }
+            if (queryParams.getHometown() != null) {
+                WHERE("i.hometown = #{params.hometown}");
+            }
+            if (queryParams.getCinfo() != null) {
+                WHERE("c.info LIKE '%' || #{params.cinfo} || '%' AND c.info IS NOT NULL");
+            }
+            if (queryParams.getAinfo() != null) {
+                WHERE("a.info LIKE '%' || #{params.ainfo} || '%' AND a.info IS NOT NULL");
+            }
+            if (queryParams.getBinfo() != null) {
+                WHERE("b.info LIKE '%' || #{params.binfo} || '%' AND b.info IS NOT NULL");
+            }
             if (queryParams.getJobid() != null && queryParams.getAbilityId() != null) {
                 StringBuilder joinCondition = new StringBuilder();
                 joinCondition.append("stu_ability_score e ON e.schid = i.schid AND e.studentid = i.studentno ");
