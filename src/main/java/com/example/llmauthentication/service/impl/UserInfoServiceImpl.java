@@ -10,6 +10,7 @@ import com.example.llmauthentication.pojo.UserInfo;
 import com.example.llmauthentication.pojo.UserInfoVo;
 import com.example.llmauthentication.service.UserInfoService;
 import com.example.llmauthentication.mapper.UserInfoMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ import javax.annotation.Resource;
 * @description 针对表【user_info】的数据库操作Service实现
 * @createDate 2024-04-08 17:06:47
 */
+
+@Slf4j
 @Service
 public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
     implements UserInfoService{
@@ -54,8 +57,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo>
         // 将 userInfoVo 转换为 UserInfo
         UserInfo userInfo = new UserInfo();
         BeanUtils.copyProperties(userInfoVo, userInfo);
-
+        log.info("user vo is {}",userInfo);
         int result = userInfoMapper.updateById(userInfo);
+        log.info("result is {}",result);
 
         // 如果更新成功，result 等于操作影响的行数，一般为1，
         // 如果更新失败（例如找不到相应id的数据行），那么result 等于0
