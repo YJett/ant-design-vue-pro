@@ -51,8 +51,10 @@ public class UserInfoController {
         boolean result = userInfoService.createUser(userInfoVo);
         return Result.judge(result);
     }
+
     @PutMapping("/users/update")
-    public Result updateUser(@RequestBody @Valid UserInfoVo userInfoVo) {
+    public Result<Boolean> updateUser(@RequestBody @Valid UserInfoVo userInfoVo) {
+        log.info("receive userinfovo is {}",userInfoVo);
         boolean updateResult = userInfoService.updateUser(userInfoVo);
         return Result.judge(updateResult);
     }

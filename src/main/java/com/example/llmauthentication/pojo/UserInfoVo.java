@@ -2,6 +2,7 @@ package com.example.llmauthentication.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +13,9 @@ import java.util.Date;
 @TableName(value ="user_info")
 @Data
 public class UserInfoVo implements Serializable {
+
+
+    @JsonProperty("user_id")
     private Integer userId;
 
     private String userName;
