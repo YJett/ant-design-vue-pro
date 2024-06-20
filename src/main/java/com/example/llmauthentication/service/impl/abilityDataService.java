@@ -117,15 +117,15 @@ public class abilityDataService {
                     abilityMapper.insert(ability); // 插入能力
                     Integer abilityId = ability.getAbilityid(); // 获取能力 ID
 
-                    if (upabilityId == null) { // 如果上级能力编号为空
-                        JobJobAbility jobAbility = new JobJobAbility();
-                        jobAbility.setJobid(jobIdNew);
-                        jobAbility.setAbilityno((int) abilityNo);
-                        jobAbility.setCreatetime(LocalDateTime.now());
-                        jobAbility.setUpdatetime(LocalDateTime.now());
-                        jobAbility.setAbilitywt(abilityWt);
-                        jobAbilityMapper.insert(jobAbility); // 插入岗位与能力的关系
-                    }
+
+                    JobJobAbility jobAbility = new JobJobAbility();
+                    jobAbility.setJobid(jobIdNew);
+                    jobAbility.setAbilityno((int) abilityNo);
+                    jobAbility.setCreatetime(LocalDateTime.now());
+                    jobAbility.setUpdatetime(LocalDateTime.now());
+                    jobAbility.setAbilitywt(abilityWt);
+                    jobAbilityMapper.insert(jobAbility); // 插入岗位与能力的关系
+
                 }
             }
         }
