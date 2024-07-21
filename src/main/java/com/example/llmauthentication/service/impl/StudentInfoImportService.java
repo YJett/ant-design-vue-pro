@@ -335,62 +335,79 @@ public class StudentInfoImportService {
                 InternshipInfo internshipInfo = new InternshipInfo();
                 internshipInfo.setSchid(schId);
 
+                boolean hasData = false;
+
                 if (row.getCell(0) != null && row.getCell(0).getCellType() == CellType.STRING) {
                     internshipInfo.setStudentno(row.getCell(0).getStringCellValue());
+                    hasData = true;
                 }
 
                 if (row.getCell(1) != null && row.getCell(1).getCellType() == CellType.STRING) {
                     internshipInfo.setIndustryCd(row.getCell(1).getStringCellValue());
+                    hasData = true;
                 }
 
                 if (row.getCell(2) != null && row.getCell(2).getCellType() == CellType.STRING) {
                     internshipInfo.setInternshipEnterprise(row.getCell(2).getStringCellValue());
+                    hasData = true;
                 }
 
                 if (row.getCell(3) != null && row.getCell(3).getCellType() == CellType.STRING) {
                     internshipInfo.setContent(row.getCell(3).getStringCellValue());
+                    hasData = true;
                 }
 
                 if (row.getCell(4) != null && row.getCell(4).getCellType() == CellType.NUMERIC) {
                     internshipInfo.setDuratio((int) row.getCell(4).getNumericCellValue());
+                    hasData = true;
                 }
 
                 if (row.getCell(5) != null && row.getCell(5).getCellType() == CellType.NUMERIC) {
                     internshipInfo.setScore((int) row.getCell(5).getNumericCellValue());
+                    hasData = true;
                 }
 
                 if (row.getCell(6) != null && row.getCell(6).getCellType() == CellType.STRING) {
                     internshipInfo.setStartDate(row.getCell(6).getStringCellValue());
+                    hasData = true;
                 }
 
                 if (row.getCell(7) != null && row.getCell(7).getCellType() == CellType.STRING) {
                     internshipInfo.setEndDate(row.getCell(7).getStringCellValue());
+                    hasData = true;
                 }
 
                 if (row.getCell(8) != null && row.getCell(8).getCellType() == CellType.STRING) {
                     internshipInfo.setViolationFlg(row.getCell(8).getStringCellValue());
+                    hasData = true;
                 }
 
                 if (row.getCell(9) != null && row.getCell(9).getCellType() == CellType.STRING) {
                     internshipInfo.setViolation(row.getCell(9).getStringCellValue());
+                    hasData = true;
                 }
 
                 if (row.getCell(10) != null && row.getCell(10).getCellType() == CellType.STRING) {
                     internshipInfo.setJudgement(row.getCell(10).getStringCellValue());
+                    hasData = true;
                 }
 
-                internshipInfo.setCreatetime(new Date());
-                internshipInfo.setUpdatetime(new Date());
+                // 只有在至少有一个字段有值时，才会插入数据库
+                if (hasData) {
+                    internshipInfo.setCreatetime(new Date());
+                    internshipInfo.setUpdatetime(new Date());
 
-                try {
-                    internshipInfoMapper.insert(internshipInfo);
-                } catch (Exception e) {
-                    // 记录日志或处理插入失败的情况
-                    e.printStackTrace();
+                    try {
+                        internshipInfoMapper.insert(internshipInfo);
+                    } catch (Exception e) {
+                        // 记录日志或处理插入失败的情况
+                        e.printStackTrace();
+                    }
                 }
             }
         }
     }
+
 
     private void importStuAttendanceInfo(Sheet sheet, Integer schId) {
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {

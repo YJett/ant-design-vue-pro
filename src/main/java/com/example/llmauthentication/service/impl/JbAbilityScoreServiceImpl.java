@@ -24,7 +24,7 @@ public class JbAbilityScoreServiceImpl extends ServiceImpl<JbAbilityScoreMapper,
     private JbAbilityScoreMapper jbAbilityScoreMapper;
     @Override
     @Transactional
-    public List<Map<String, Object>> getAverageScoreByType(Integer schId, Integer studentId) {
+    public List<Map<String, Object>> getAverageScoreByType(Integer schId, String studentId) {
         // 调用存储过程
         jbAbilityScoreMapper.callSfInsKnowledge(schId, studentId);
 
@@ -32,7 +32,7 @@ public class JbAbilityScoreServiceImpl extends ServiceImpl<JbAbilityScoreMapper,
         return jbAbilityScoreMapper.getAverageScoreByType(schId, studentId);
     }
 
-    public List<Map<String, Object>> getScoreAndKnowledgeName(Integer schId, Integer studentId, String type) {
+    public List<Map<String, Object>> getScoreAndKnowledgeName(Integer schId, String studentId, String type) {
         return jbAbilityScoreMapper.getScoreAndKnowledgeName(schId, studentId, type);
     }
 }

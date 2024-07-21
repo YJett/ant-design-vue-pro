@@ -17,14 +17,14 @@ import java.util.Map;
 */
 public interface JbAbilityScoreMapper extends BaseMapper<JbAbilityScore> {
 
-    @Update("{call SF_INS_KNOWLEDGE(#{schId, mode=IN, jdbcType=INTEGER}, #{studentId, mode=IN, jdbcType=INTEGER})}")
-    void callSfInsKnowledge(@Param("schId") Integer schId, @Param("studentId") Integer studentId);
+    @Update("{call SF_INS_KNOWLEDGE(#{schId, mode=IN, jdbcType=INTEGER}, #{studentId, mode=IN, jdbcType=VARCHAR})}")
+    void callSfInsKnowledge(@Param("schId") Integer schId, @Param("studentId") String studentId);
 
     @Select("SELECT type, AVG(score) AS avg_score " +
             "FROM jb_ability_score " +
             "WHERE schid = #{schId} AND studentid = #{studentId} " +
             "GROUP BY type")
-    List<Map<String, Object>> getAverageScoreByType(@Param("schId") Integer schId, @Param("studentId") Integer studentId);
+    List<Map<String, Object>> getAverageScoreByType(@Param("schId") Integer schId, @Param("studentId") String studentId);
 
     @Select("SELECT j.score, k.knowledgenm " +
             "FROM jb_ability_score j " +
@@ -33,7 +33,7 @@ public interface JbAbilityScoreMapper extends BaseMapper<JbAbilityScore> {
             "AND j.studentid = #{studentId} " +
             "AND j.type = #{type}")
     List<Map<String, Object>> getScoreAndKnowledgeName(@Param("schId") Integer schId,
-                                                       @Param("studentId") Integer studentId,
+                                                       @Param("studentId") String studentId,
                                                        @Param("type") String type);
 }
 

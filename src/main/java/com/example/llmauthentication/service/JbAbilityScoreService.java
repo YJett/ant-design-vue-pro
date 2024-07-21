@@ -12,7 +12,7 @@ import java.util.Map;
 * @createDate 2024-06-01 16:20:45
 */
 public interface JbAbilityScoreService extends IService<JbAbilityScore> {
-    List<Map<String, Object>> getAverageScoreByType(Integer schId, Integer studentId);
+    List<Map<String, Object>> getAverageScoreByType(Integer schId, String studentId);
 
-    List<Map<String, Object>> getScoreAndKnowledgeName(Integer schId, Integer studentId, String type);
+    List<Map<String, Object>> getScoreAndKnowledgeName(Integer schId, String studentId, String type);
 }

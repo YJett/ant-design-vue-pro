@@ -19,14 +19,14 @@ public class JbAbilityScoreController {
     private JbAbilityScoreServiceImpl jbAbilityScoreService;
 
     @GetMapping("/averageScore")
-    public Result getAverageScoreByType(@RequestParam Integer schId, @RequestParam Integer studentId) {
+    public Result getAverageScoreByType(@RequestParam Integer schId, @RequestParam String studentId) {
         List<Map<String, Object>> averageScores = jbAbilityScoreService.getAverageScoreByType(schId, studentId);
         return Result.success(averageScores);
     }
 
     @GetMapping("/scoreAndKnowledgeName")
     public Result getScoreAndKnowledgeName(@RequestParam Integer schId,
-                                           @RequestParam Integer studentId,
+                                           @RequestParam String studentId,
                                            @RequestParam String type) {
         List<Map<String, Object>> result = jbAbilityScoreService.getScoreAndKnowledgeName(schId, studentId, type);
         return Result.success(result);
