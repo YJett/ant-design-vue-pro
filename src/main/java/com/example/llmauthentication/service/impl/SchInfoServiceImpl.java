@@ -109,6 +109,15 @@ public class SchInfoServiceImpl extends ServiceImpl<SchInfoMapper, SchInfo>
         }
     }
 
+    @Override
+    public String getschName(String loginName) {
+        QueryWrapper<SchInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("login_name",loginName);
+        SchInfo schInfo = schInfoMapper.selectOne(queryWrapper);
+        String schName = schInfo.getSchName();
+        return schName;
+    }
+
 
     @Override
     public Result login(String schName, String password) {

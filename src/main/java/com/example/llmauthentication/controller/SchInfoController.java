@@ -88,6 +88,11 @@ public class SchInfoController {
         return Result.success();
     }
 
+    @GetMapping("getSchNameByLoginName")
+    public Result<String> getSchNameByLoginName(@RequestParam(value = "loginName") String loginName){
+        String schName = schInfoService.getschName(loginName);
+        return Result.success(schName);
+    }
 
 
 }

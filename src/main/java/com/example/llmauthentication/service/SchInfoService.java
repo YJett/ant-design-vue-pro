@@ -33,4 +33,6 @@ public interface SchInfoService extends IService<SchInfo> {
 
 
     void importData(MultipartFile file);
+
+    String  getschName(String loginName);
 }
