@@ -28,7 +28,7 @@ public interface JbAbilityScoreMapper extends BaseMapper<JbAbilityScore> {
 
     @Select("SELECT j.score, k.knowledgenm " +
             "FROM jb_ability_score j " +
-            "JOIN kp_knowledge_point k ON j.knowledgeid = k.knowledgeid " +
+            "JOIN kp_knowledge_point k ON j.knowledgeid = k.knowledgeid and j.schid = k.schid " +
             "WHERE j.schid = #{schId} " +
             "AND j.studentid = #{studentId} " +
             "AND j.type = #{type}")
