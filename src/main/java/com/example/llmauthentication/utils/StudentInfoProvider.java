@@ -31,13 +31,13 @@ public class StudentInfoProvider {
                 WHERE("i.hometown = #{params.hometown}");
             }
             if (queryParams.getCinfo() != null) {
-                WHERE("c.info LIKE '%' || #{params.cinfo} || '%' AND c.info IS NOT NULL");
+                WHERE("c.info LIKE CONCAT('%', #{params.cinfo}, '%') AND c.info IS NOT NULL");
             }
             if (queryParams.getAinfo() != null) {
-                WHERE("a.info LIKE '%' || #{params.ainfo} || '%' AND a.info IS NOT NULL");
+                WHERE("a.info LIKE CONCAT('%', #{params.ainfo}, '%') AND a.info IS NOT NULL");
             }
             if (queryParams.getBinfo() != null) {
-                WHERE("b.info LIKE '%' || #{params.binfo} || '%' AND b.info IS NOT NULL");
+                WHERE("b.info LIKE CONCAT('%', #{params.binfo}, '%') AND b.info IS NOT NULL");
             }
             if (queryParams.getJobid() != null && queryParams.getAbilityId() != null) {
                 StringBuilder joinCondition = new StringBuilder();
