@@ -9,7 +9,7 @@ public class StudentInfoProvider {
         StudentQueryParams queryParams = (StudentQueryParams) params.get("params");
 
         return new SQL() {{
-            SELECT("i.studentNm, sc.schName as schName, i.hometown, i.party, a.info as scholarship, " +
+            SELECT("i.studentNo, i.studentNm, sc.schName as schName, i.hometown, i.party, a.info as scholarship, " +
                     "b.info as contest, c.info as certificate, g.gpa");
             FROM("student_info i");
             INNER_JOIN("school_info sc ON sc.schId = i.schId");
@@ -28,7 +28,7 @@ public class StudentInfoProvider {
                 WHERE("i.party = #{params.party}");
             }
             if (queryParams.getHometown() != null) {
-                WHERE("i.hometown = #{params.hometown}");
+                WHERE("i.hometown LIKE CONCAT('%', #{params.hometown}, '%') AND i.hometown IS NOT NULL");
             }
             if (queryParams.getCinfo() != null) {
                 WHERE("c.info LIKE CONCAT('%', #{params.cinfo}, '%') AND c.info IS NOT NULL");
