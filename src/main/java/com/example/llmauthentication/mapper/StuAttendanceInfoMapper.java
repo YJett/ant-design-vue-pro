@@ -2,6 +2,9 @@ package com.example.llmauthentication.mapper;
 
 import com.example.llmauthentication.pojo.StuAttendanceInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author arthur
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface StuAttendanceInfoMapper extends BaseMapper<StuAttendanceInfo> {
 
+    void insertBatch(@Param("stuAttendanceInfoList") List<StuAttendanceInfo> stuAttendanceInfoList);
 }
 
 

@@ -39,4 +39,19 @@
         early,createTime,updateTime,
         leave
     </sql>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO stu_attendance_info (schid, courseno, coursenm, studentname, studentno, department, major, studentclass,
+        in_enthusiasm, out_enthusiasm, score, regular_grade, points, attendance_rate,
+        attendance, really, absent, late, early, leaverequests, createtime, updatetime)
+        VALUES
+        <foreach collection="stuAttendanceInfoList" item="item" separator=",">
+            (#{item.schid}, #{item.courseno}, #{item.coursenm}, #{item.studentname}, #{item.studentno},
+            #{item.department}, #{item.major}, #{item.studentclass}, #{item.inEnthusiasm}, #{item.outEnthusiasm},
+            #{item.score}, #{item.regularGrade}, #{item.points}, #{item.attendanceRate}, #{item.attendance},
+            #{item.really}, #{item.absent}, #{item.late}, #{item.early}, #{item.leaverequests},
+            #{item.createtime}, #{item.updatetime})
+        </foreach>
+    </insert>
+
 </mapper>

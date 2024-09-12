@@ -29,4 +29,15 @@
         core_score,development_score,practice_score,
         gpa,createTime,updateTime
     </sql>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO stu_grade_info (schid, studentno, general_credit, subject_credit, core_credit, development_credit, total, general_score, subject_score, core_score, development_score, practice_score, gpa, createtime, updatetime)
+        VALUES
+        <foreach collection="stuGradeInfoList" item="item" separator=",">
+            (#{item.schid}, #{item.studentno}, #{item.generalCredit}, #{item.subjectCredit}, #{item.coreCredit}, #{item.developmentCredit}, #{item.total},
+            #{item.generalScore}, #{item.subjectScore}, #{item.coreScore}, #{item.developmentScore}, #{item.practiceScore}, #{item.gpa},
+            #{item.createtime}, #{item.updatetime})
+        </foreach>
+    </insert>
+
 </mapper>

@@ -30,6 +30,9 @@ public interface StudentInfoMapper extends BaseMapper<StudentInfo> {
 
     @SelectProvider(type = StudentInfoProvider.class, method = "buildStudentInfoQuery")
     List<Map<String, Object>> getStudentInfo(@Param("params") StudentQueryParams params);
+
+    //学生数据批量插入方法
+    void insertBatch(@Param("studentInfoList") List<StudentInfo> studentInfoList);
 }
 
 
