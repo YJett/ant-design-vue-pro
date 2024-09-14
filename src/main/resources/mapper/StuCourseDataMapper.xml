@@ -25,4 +25,14 @@
         endterm_grade,score,createTime,
         updateTime,credits,gpa
     </sql>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO stu_course_data (schid, studentno, courseno, coursenm, semester, credits, regular_grade, endterm_grade, score, gpa, createtime, updatetime)
+        VALUES
+        <foreach collection="stuCourseDataList" item="item" separator=",">
+            (#{item.schid}, #{item.studentno}, #{item.courseno}, #{item.coursenm}, #{item.semester}, #{item.credits},
+            #{item.regularGrade}, #{item.endtermGrade}, #{item.score}, #{item.gpa}, #{item.createtime}, #{item.updatetime})
+        </foreach>
+    </insert>
+
 </mapper>

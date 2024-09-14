@@ -14,7 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -408,8 +410,9 @@ public class StudentInfoImportService {
         }
     }
 
-
     private void importStuAttendanceInfo(Sheet sheet, Integer schId) {
+        List<StuAttendanceInfo> stuAttendanceInfoList = new ArrayList<>();
+
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
             if (row != null) {
@@ -495,15 +498,22 @@ public class StudentInfoImportService {
                 stuAttendanceInfo.setCreatetime(new Date());
                 stuAttendanceInfo.setUpdatetime(new Date());
 
-                try {
-                    stuAttendanceInfoMapper.insert(stuAttendanceInfo);
-                } catch (Exception e) {
-                    // 记录日志或处理插入失败的情况
-                    e.printStackTrace();
+                stuAttendanceInfoList.add(stuAttendanceInfo);
+
+                // 每1000条记录批量插入一次
+                if (stuAttendanceInfoList.size() >= 1000) {
+                    stuAttendanceInfoMapper.insertBatch(stuAttendanceInfoList);
+                    stuAttendanceInfoList.clear();
                 }
             }
         }
+
+        // 插入剩余的记录
+        if (!stuAttendanceInfoList.isEmpty()) {
+            stuAttendanceInfoMapper.insertBatch(stuAttendanceInfoList);
+        }
     }
+
     private void importGreenChannels(Sheet sheet, Integer schId) {
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
@@ -549,6 +559,8 @@ public class StudentInfoImportService {
     }
 
     private void importDormitoryHealthInfo(Sheet sheet, Integer schId) {
+        List<DormitoryHealthInfo> dormitoryHealthInfoList = new ArrayList<>();
+
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
             if (row != null) {
@@ -598,13 +610,19 @@ public class StudentInfoImportService {
                 dormitoryHealthInfo.setCreatetime(new Date());
                 dormitoryHealthInfo.setUpdatetime(new Date());
 
-                try {
-                    dormitoryHealthInfoMapper.insert(dormitoryHealthInfo);
-                } catch (Exception e) {
-                    // 记录日志或处理插入失败的情况
-                    e.printStackTrace();
+                dormitoryHealthInfoList.add(dormitoryHealthInfo);
+
+                // 每1000条记录批量插入一次
+                if (dormitoryHealthInfoList.size() >= 1000) {
+                    dormitoryHealthInfoMapper.insertBatch(dormitoryHealthInfoList);
+                    dormitoryHealthInfoList.clear();  // 清空列表
                 }
             }
+        }
+
+        // 插入剩余的记录
+        if (!dormitoryHealthInfoList.isEmpty()) {
+            dormitoryHealthInfoMapper.insertBatch(dormitoryHealthInfoList);
         }
     }
 
@@ -697,6 +715,8 @@ public class StudentInfoImportService {
     }
 
     private void importStudentBasicInfo(Sheet sheet, int schId, String schNmane) {
+        List<StudentInfo> studentInfoList = new ArrayList<>();
+
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
             if (row != null) {
@@ -730,14 +750,13 @@ public class StudentInfoImportService {
 
                 if (row.getCell(6) != null) {
                     if (row.getCell(6).getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(row.getCell(6))) {
-                        Date birthDayDate = row.getCell(6).getDateCellValue();
-                        studentInfo.setBirthday(birthDayDate);
+                        studentInfo.setBirthday(row.getCell(6).getDateCellValue());
                     }
                 }
+
                 if (row.getCell(7) != null) {
                     if (row.getCell(7).getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(row.getCell(7))) {
-                        Date enrollmentDate = row.getCell(7).getDateCellValue();
-                        studentInfo.setEnrollmentDate(enrollmentDate);
+                        studentInfo.setEnrollmentDate(row.getCell(7).getDateCellValue());
                     }
                 }
 
@@ -760,18 +779,26 @@ public class StudentInfoImportService {
                 studentInfo.setCreatetime(new Date());
                 studentInfo.setUpdatetime(new Date());
 
-                try {
-                    studentInfoMapper.insert(studentInfo);
-                } catch (Exception e) {
-                    // 记录日志或处理插入失败的情况
-                    e.printStackTrace();
+                // 添加到批量插入列表
+                studentInfoList.add(studentInfo);
+
+                // 批量插入，每1000条一次
+                if (studentInfoList.size() >= 1000) {
+                    studentInfoMapper.insertBatch(studentInfoList);
+                    studentInfoList.clear(); // 清空列表，准备下一个批次
                 }
             }
         }
+
+        // 插入剩余的记录
+        if (!studentInfoList.isEmpty()) {
+            studentInfoMapper.insertBatch(studentInfoList);
+        }
     }
 
-
     private void importStuGradeInfo(Sheet sheet, int schId) {
+        List<StuGradeInfo> stuGradeInfoList = new ArrayList<>();
+
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
             if (row != null) {
@@ -829,17 +856,26 @@ public class StudentInfoImportService {
                 stuGradeInfo.setCreatetime(new Date());
                 stuGradeInfo.setUpdatetime(new Date());
 
-                try {
-                    stuGradeInfoMapper.insert(stuGradeInfo);
-                } catch (Exception e) {
-                    // 记录日志或处理插入失败的情况
-                    e.printStackTrace();
+                // 添加到批量插入列表
+                stuGradeInfoList.add(stuGradeInfo);
+
+                // 每1000条记录插入一次
+                if (stuGradeInfoList.size() >= 1000) {
+                    stuGradeInfoMapper.insertBatch(stuGradeInfoList);
+                    stuGradeInfoList.clear(); // 清空列表，准备下一个批次
                 }
             }
+        }
+
+        // 插入剩余的记录
+        if (!stuGradeInfoList.isEmpty()) {
+            stuGradeInfoMapper.insertBatch(stuGradeInfoList);
         }
     }
 
     private void importStuCourseData(Sheet sheet, int schId) {
+        List<StuCourseData> stuCourseDataList = new ArrayList<>();
+
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
             if (row != null) {
@@ -885,13 +921,20 @@ public class StudentInfoImportService {
                 stuCourseData.setCreatetime(new Date());
                 stuCourseData.setUpdatetime(new Date());
 
-                try {
-                    stuCourseDataMapper.insert(stuCourseData);
-                } catch (Exception e) {
-                    // 记录日志或处理插入失败的情况
-                    e.printStackTrace();
+                stuCourseDataList.add(stuCourseData);
+
+                // 每1000条进行一次批量插入
+                if (stuCourseDataList.size() >= 1000) {
+                    stuCourseDataMapper.insertBatch(stuCourseDataList);
+                    stuCourseDataList.clear();  // 清空列表
                 }
             }
         }
+
+        // 插入剩余的记录
+        if (!stuCourseDataList.isEmpty()) {
+            stuCourseDataMapper.insertBatch(stuCourseDataList);
+        }
     }
+
 }

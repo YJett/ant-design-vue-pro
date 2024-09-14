@@ -19,4 +19,16 @@
         level,check_date,createTime,
         updateTime
     </sql>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO dormitory_health_info (schid, studentno, studentnm, domitory_no, room_no, grade, studentclass,
+        check_date, check_type, week, score, createtime, updatetime)
+        VALUES
+        <foreach collection="dormitoryHealthInfoList" item="item" separator=",">
+            (#{item.schid}, #{item.studentno}, #{item.studentnm}, #{item.domitoryNo}, #{item.roomNo}, #{item.grade},
+            #{item.studentclass}, #{item.checkDate}, #{item.checkType}, #{item.week}, #{item.score},
+            #{item.createtime}, #{item.updatetime})
+        </foreach>
+    </insert>
+
 </mapper>

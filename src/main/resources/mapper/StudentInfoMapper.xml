@@ -32,4 +32,15 @@
         enrollment_date,party,hometown,
         health,disability
     </sql>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO student_info (schid, schnm, department, major, studentclass, studentno, studentnm, gender, birthday, enrollment_date, party, hometown, health, disability, createtime, updatetime)
+        VALUES
+        <foreach collection="studentInfoList" item="item" separator=",">
+            (#{item.schid}, #{item.schnm}, #{item.department}, #{item.major}, #{item.studentclass}, #{item.studentno}, #{item.studentnm}, #{item.gender},
+            #{item.birthday}, #{item.enrollmentDate}, #{item.party}, #{item.hometown}, #{item.health}, #{item.disability},
+            #{item.createtime}, #{item.updatetime})
+        </foreach>
+    </insert>
+
 </mapper>
