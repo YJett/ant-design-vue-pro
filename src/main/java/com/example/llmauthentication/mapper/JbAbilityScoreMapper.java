@@ -20,7 +20,7 @@ public interface JbAbilityScoreMapper extends BaseMapper<JbAbilityScore> {
     @Update("{call SF_INS_KNOWLEDGE(#{schId, mode=IN, jdbcType=INTEGER}, #{studentId, mode=IN, jdbcType=VARCHAR})}")
     void callSfInsKnowledge(@Param("schId") Integer schId, @Param("studentId") String studentId);
 
-    @Select("SELECT type, AVG(score) AS avg_score " +
+    @Select("SELECT type, TRUNCATE(AVG(score), 1) AS avg_score " +
             "FROM jb_ability_score " +
             "WHERE schid = #{schId} AND studentid = #{studentId} " +
             "GROUP BY type")
