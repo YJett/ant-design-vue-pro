@@ -4,6 +4,7 @@ import com.example.llmauthentication.pojo.StudentInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.llmauthentication.pojo.StudentLiteracy;
 import com.example.llmauthentication.pojo.StudentQueryParams;
+import com.example.llmauthentication.pojo.WordInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -21,4 +22,7 @@ public interface StudentInfoService extends IService<StudentInfo> {
 
 
     StudentLiteracy getStudentLiteracy(Integer schId, String studentNo);
+
+    //word信息查询
+    WordInfo getWordInfo(Integer schId, String studentNo);
 }
