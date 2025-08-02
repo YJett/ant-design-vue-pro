@@ -3,6 +3,7 @@ package com.example.llmauthentication.pojo;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ranyouwei
@@ -54,18 +55,23 @@ public class WordInfo {
     /**
      * 主修课程
      */
-    private String majorCourse;
+    private List<String> courseName;
 
 
     /**
      * 技能证书
      */
-    private String certinm;
+    private List<String> certinm;
 
     /**
      * 竞赛名称
      */
-    private String contestnm;
+    private List<String> contestnm;
+
+    /**
+     * 生源地
+     */
+    private String hometown;
 
 
 }

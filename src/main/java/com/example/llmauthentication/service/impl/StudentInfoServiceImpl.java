@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -88,65 +89,46 @@ public class StudentInfoServiceImpl extends ServiceImpl<StudentInfoMapper, Stude
         courseQueryWrapper.eq("type", "专业核心课");
         courseQueryWrapper.eq("schId", schId);
         List<CourseInfo> courseInfos = courseInfoMapper.selectList(courseQueryWrapper);
-        String majorCourseNm = "";
+        List<String> courseNames = new ArrayList<>();
         if (courseInfos != null && !courseInfos.isEmpty()) {
-            List<String> courseNames = courseInfos.stream()
+             courseNames = courseInfos.stream()
                     .map(course -> Optional.ofNullable(course.getCoursenm()).orElse(""))
                     .filter(name -> !name.isEmpty())
                     .distinct()
                     .limit(6)
                     .collect(Collectors.toList());
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < courseNames.size(); i++) {
-                sb.append((i + 1)).append(". ").append(courseNames.get(i));
-                if ((i + 1) % 3 == 0 && i < courseNames.size() - 1) {
-                    sb.append("<w:br/>");
-                } else if (i < courseNames.size() - 1) {
-                    sb.append("  "); // 使用空格分隔同一行的课程
-                }
-            }
-            majorCourseNm = sb.toString();
         }
-        wordInfo.setMajorCourse(majorCourseNm);
+        wordInfo.setCourseName(courseNames);
 
         // 获取竞赛信息（去重），每行展示一个
         QueryWrapper<ContestInfo> contestQueryWrapper = new QueryWrapper<>();
         contestQueryWrapper.eq("schId", schId);
         contestQueryWrapper.eq("studentNo", studentNo);
         List<ContestInfo> contestInfos = contestInfoMapper.selectList(contestQueryWrapper);
-        String contestNm = "";
+        List<String> contestNames = new ArrayList<>();
         if (contestInfos != null && !contestInfos.isEmpty()) {
-            List<String> contestNames = contestInfos.stream()
+            contestNames = contestInfos.stream()
                     .map(contest -> Optional.ofNullable(contest.getContestnm()).orElse(""))
                     .filter(name -> !name.isEmpty())
                     .distinct()
                     .collect(Collectors.toList());
-
-            contestNm = IntStream.range(0, contestNames.size())
-                    .mapToObj(i -> (i + 1) + ". " + contestNames.get(i))
-                    .collect(Collectors.joining("<w:br/>")); // 使用 <w:br/> 连接
         }
-        wordInfo.setContestnm(contestNm);
+        wordInfo.setContestnm(contestNames);
 
         // 获取技能证书（去重），每行展示一个
         QueryWrapper<CertificateInfo> certificateQueryWrapper = new QueryWrapper<>();
         certificateQueryWrapper.eq("schId", schId);
         certificateQueryWrapper.eq("studentNo", studentNo);
         List<CertificateInfo> certificateInfos = certificateInfoMapper.selectList(certificateQueryWrapper);
-        String certificateNm = "";
+        List<String> certificateNames = new ArrayList<>();
         if (certificateInfos != null && !certificateInfos.isEmpty()) {
-            List<String> certificateNames = certificateInfos.stream()
+            certificateNames = certificateInfos.stream()
                     .map(certificate -> Optional.ofNullable(certificate.getCertinm()).orElse(""))
                     .filter(name -> !name.isEmpty())
                     .distinct()
                     .collect(Collectors.toList());
-
-            certificateNm = IntStream.range(0, certificateNames.size())
-                    .mapToObj(i -> (i + 1) + ". " + certificateNames.get(i))
-                    .collect(Collectors.joining("<w:br/>")); // 使用 <w:br/> 连接
         }
-        wordInfo.setCertinm(certificateNm);
+        wordInfo.setCertinm(certificateNames);
 
         return wordInfo;
     }
