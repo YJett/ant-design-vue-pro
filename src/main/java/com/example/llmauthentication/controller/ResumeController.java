@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
@@ -54,9 +56,19 @@ public class ResumeController {
             String contentType = photo.getContentType(); // 如 image/jpeg
             pictureType = resolvePictureType(contentType);
         } else {
-            File defaultPhoto = new File("src/main/resources/resumePicture/empty.jpg");
-            photoBytes = Files.readAllBytes(defaultPhoto.toPath());
-            pictureType = PictureType.JPEG; // 默认图片类型
+            try (InputStream in = getClass().getClassLoader().getResourceAsStream("resumePicture/empty.jpg")) {
+                if (in == null) {
+                    throw new RuntimeException("默认图片资源未找到！");
+                }
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                byte[] tmp = new byte[1024];
+                int len;
+                while ((len = in.read(tmp)) != -1) {
+                    buffer.write(tmp, 0, len);
+                }
+                photoBytes = buffer.toByteArray();
+                pictureType = PictureType.JPEG;   // 默认图片类型
+            }
         }
 
         PictureRenderData picture = Pictures.ofBytes(photoBytes, pictureType)
@@ -126,8 +138,8 @@ public class ResumeController {
         }
 
         // 5. 渲染并输出 Word
-        try (XWPFTemplate template =
-                     XWPFTemplate.compile("src/main/resources/templates/resumepoitl2.docx")) {
+        try (InputStream in = getClass().getClassLoader().getResourceAsStream("templates/resumepoitl2.docx");
+             XWPFTemplate template = XWPFTemplate.compile(in)) {
             template.render(data);
 
             // 设置响应类型
