@@ -1,15 +1,14 @@
 package com.example.llmauthentication.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.llmauthentication.common.result.Result;
 import com.example.llmauthentication.pojo.JbAbilityKnowledge;
+import com.example.llmauthentication.service.Neo4jSyncClient;
 import com.example.llmauthentication.service.impl.JbAbilityKnowledgeServiceImpl;
-import com.example.llmauthentication.service.impl.abilityDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Slf4j
@@ -20,6 +19,8 @@ public class JbAbilityKnowledgeController {
 
     @Autowired
     private JbAbilityKnowledgeServiceImpl jbAbilityKnowledgeService;
+    @Autowired
+    private Neo4jSyncClient neo4jSyncClient;
 
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id) {
@@ -31,8 +32,15 @@ public class JbAbilityKnowledgeController {
     public Result save(@RequestBody JbAbilityKnowledge jbAbilityKnowledge) {
         jbAbilityKnowledge.setCreatetime(LocalDateTime.now());
         jbAbilityKnowledge.setUpdatetime(LocalDateTime.now());
-        jbAbilityKnowledgeService.save(jbAbilityKnowledge);
-        return Result.success();
+        boolean saved = jbAbilityKnowledgeService.save(jbAbilityKnowledge);
+        if (saved) {
+            neo4jSyncClient.syncAbilityKnowledge(
+                    jbAbilityKnowledge.getSchid(),
+                    jbAbilityKnowledge.getAbilityid(),
+                    jbAbilityKnowledge.getKnowledgeid(),
+                    "ability-knowledge-insert");
+        }
+        return Result.judge(saved);
     }
 
     @PutMapping("/update")
@@ -48,13 +56,23 @@ public class JbAbilityKnowledgeController {
         jbAbilityKnowledge.setKnowledgeid(knowledgeid);
         jbAbilityKnowledge.setCreatetime(createtime != null ? createtime : LocalDateTime.now());
         jbAbilityKnowledge.setUpdatetime(updatetime != null ? updatetime : LocalDateTime.now());
-        jbAbilityKnowledgeService.updateById(jbAbilityKnowledge);
-        return Result.success();
+        QueryWrapper<JbAbilityKnowledge> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("schId", schid)
+                .eq("abilityId", abilityid)
+                .eq("knowledgeId", knowledgeid);
+        boolean updated = jbAbilityKnowledgeService.update(jbAbilityKnowledge, queryWrapper);
+        if (updated) {
+            neo4jSyncClient.syncAbilityKnowledge(schid, abilityid, knowledgeid, "ability-knowledge-update");
+        }
+        return Result.judge(updated);
     }
 
     @DeleteMapping("/{id}")
     public Result removeById(@PathVariable Integer id) {
-        jbAbilityKnowledgeService.removeById(id);
-        return Result.success();
+        boolean removed = jbAbilityKnowledgeService.removeById(id);
+        if (removed) {
+            neo4jSyncClient.syncFull("ability-knowledge-delete");
+        }
+        return Result.judge(removed);
     }
 }

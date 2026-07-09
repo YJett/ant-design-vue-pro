@@ -6,6 +6,7 @@ import com.example.llmauthentication.mapper.JbAbilityKnowledgeMapper;
 import com.example.llmauthentication.mapper.KpKnowledgePointMapper;
 import com.example.llmauthentication.mapper.SchInfoMapper;
 import com.example.llmauthentication.pojo.SchInfo;
+import com.example.llmauthentication.service.Neo4jSyncClient;
 import com.example.llmauthentication.service.KpKnowledgePointService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class KpKnowledgePointController {
     private KpKnowledgePointMapper kpKnowledgePointMapper;
     @Autowired
     private JbAbilityKnowledgeMapper jbAbilityKnowledgeMapper;
+    @Autowired
+    private Neo4jSyncClient neo4jSyncClient;
     @PostMapping("/importKpKnowledgeData")
     public Result<Integer> importKpKnowledgeData(@RequestParam("file") MultipartFile file,@RequestParam("schoolName") String schoolName){
         //监听器的版本
@@ -46,6 +49,7 @@ public class KpKnowledgePointController {
 
         try {
             kpKnowledgePointService.importKnowledgeData(file, schId);
+            neo4jSyncClient.syncFull("knowledge-import:" + schId);
             return Result.success();
         } catch (IOException e) {
             return Result.failed("导入失败");
