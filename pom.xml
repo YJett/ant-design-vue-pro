@@ -152,7 +152,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>boat-backend</finalName>
+        <finalName>boat-backend-boat-gxjd</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
