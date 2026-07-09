@@ -152,6 +152,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>boat-backend</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
